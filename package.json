@@ -2,7 +2,7 @@
   "name": "three-setup",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://ganyuHail.github.io/3d/",
+  "homepage": "https://ganyuhail.github.io/3d/",
   "type": "module",
   "scripts": {
     "predeploy": "npm run build",
