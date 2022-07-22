@@ -51,47 +51,26 @@ function App() {
 
       raycaster.setFromCamera(pointer, camera);
 
-      var intersects = raycaster.intersectObject(mesh);
+      var intersects = raycaster.intersectObject(boxMesh);
 
       for (var i = 0; i < intersects.length; i++) {
         var faceIndex = intersects[i].faceIndex;
         if (faceIndex == 0 || (faceIndex % 2) == 0) {
-          intersects[i].object.geometry.faces[faceIndex].color.setHex(0xD1B3B3);
-          intersects[i].object.geometry.faces[faceIndex + 1].color.setHex(0xD1B3B3);
+          intersects[i].object.geometry.faces[faceIndex].color.setHex(0xffffff);
+          intersects[i].object.geometry.faces[faceIndex + 1].color.setHex(0xffffff);
           intersects[i].object.geometry.colorsNeedUpdate = true;
         } else {
-          intersects[i].object.geometry.faces[faceIndex].color.setHex(0xD1B3B3);
-          intersects[i].object.geometry.faces[faceIndex - 1].color.setHex(0xD1B3B3);
+          intersects[i].object.geometry.faces[faceIndex].color.setHex(0xffffff);
+          intersects[i].object.geometry.faces[faceIndex - 1].color.setHex(0xffffff);
           intersects[i].object.geometry.colorsNeedUpdate = true;
         }
       }
       renderer.render(scene, camera);
     };
 
-    var isMouseDown = false;
-
-    function init() {
-      window.addEventListener('mousedown', onMouseDown);
-      window.addEventListener('mouseup', onMouseUp);
-    };
-
-    function onMouseDown() {
-      isMouseDown = true;
-    };
-
-    function onMouseUp() {
-      isMouseDown = false;
-    };
-
-    window.addEventListener('pointermove', onPointerMove);
-    window.requestAnimationFrame(render);
-
     const animate = () => {
-      
         mesh.rotation.x += 0.001;
         mesh.rotation.y += 0.001;
-        mesh.rotation.y += 0.001;
-      
       controls.update();
       renderer.render(scene, camera);
       window.requestAnimationFrame(animate);
