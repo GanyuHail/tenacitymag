@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import * as THREE from 'three';
+import { BoxGeometry } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 function App() {
@@ -48,9 +49,20 @@ function App() {
 
     function render() {
       raycaster.setFromCamera(pointer, camera);
-      const intersects = raycaster.intersectObjects(scene.children);
-      for (let i = 0; i < intersects.length; i++) {
-        intersects[i].object.material.color.set(0xff0000);
+
+      var intersects = raycaster.intersectObject(mesh);
+
+      for (var i = 0; i < intersects.length; i++) {
+        var faceIndex = intersects[i].faceIndex;
+        if (faceIndex == 0 || (faceIndex % 2) == 0) {
+          intersects[i].object.geometry.faces[faceIndex].color.setHex(0xD1B3B3);
+          intersects[i].object.geometry.faces[faceIndex + 1].color.setHex(0xD1B3B3);
+          intersects[i].object.geometry.colorsNeedUpdate = true;
+        } else {
+          intersects[i].object.geometry.faces[faceIndex].color.setHex(0xD1B3B3);
+          intersects[i].object.geometry.faces[faceIndex - 1].color.setHex(0xD1B3B3);
+          intersects[i].object.geometry.colorsNeedUpdate = true;
+        }
       }
       renderer.render(scene, camera);
     }
@@ -74,7 +86,7 @@ function App() {
     window.requestAnimationFrame(render);
 
     const animate = () => {
-      if (!isMouseDown) {
+      if (isMouseDown = false) {
         boxMesh.rotation.x += 0.001;
         boxMesh.rotation.y += 0.001;
       }
