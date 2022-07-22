@@ -32,7 +32,7 @@ function App() {
     scene.add(spotLight);
  
     const boxGeometry = new THREE.BoxGeometry(30, 15, 10);
-    const boxMaterial = new THREE.MeshNormalMaterial();
+    const boxMaterial = new THREE.MeshNormalMaterial( {color: 0xffffff});
     const boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
     scene.add(boxMesh);
 
