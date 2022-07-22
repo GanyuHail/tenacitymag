@@ -50,7 +50,7 @@ function App() {
     function render() {
       raycaster.setFromCamera(pointer, camera);
 
-      var intersects = raycaster.intersectObject(mesh);
+      var intersects = raycaster.intersectObject(BoxGeometry);
 
       for (var i = 0; i < intersects.length; i++) {
         var faceIndex = intersects[i].faceIndex;
@@ -65,6 +65,7 @@ function App() {
         }
       }
       renderer.render(scene, camera);
+
     }
 
     var isMouseDown = false;
