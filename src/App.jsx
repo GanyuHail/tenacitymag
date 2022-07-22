@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import * as THREE from 'three';
+import * as THREE from 'three';  
+import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
 
 function App() {
   useEffect(() => {
@@ -29,15 +30,18 @@ function App() {
     spotLight.castShadow = true; 
     spotLight.position.set(0, 64, 32);
     scene.add(spotLight);
-
+ 
     const boxGeometry = new THREE.BoxGeometry(30, 15, 10);
     const boxMaterial = new THREE.MeshNormalMaterial();
     const boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
     scene.add(boxMesh);
 
+    const controls = new OrbitControls(camera, renderer.domElement);
+
     const animate = () => {
       boxMesh.rotation.x += 0.01;
       boxMesh.rotation.y += 0.01;
+      controls.update();
       renderer.render(scene, camera);
       window.requestAnimationFrame(animate);
     };
