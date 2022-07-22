@@ -48,9 +48,10 @@ function App() {
     }
 
     function render() {
+
       raycaster.setFromCamera(pointer, camera);
 
-      var intersects = raycaster.intersectObject(BoxGeometry);
+      var intersects = raycaster.intersectObject(boxMesh);
 
       for (var i = 0; i < intersects.length; i++) {
         var faceIndex = intersects[i].faceIndex;
@@ -65,31 +66,31 @@ function App() {
         }
       }
       renderer.render(scene, camera);
-
-    }
+    };
 
     var isMouseDown = false;
 
     function init() {
       window.addEventListener('mousedown', onMouseDown);
       window.addEventListener('mouseup', onMouseUp);
-    }
+    };
 
     function onMouseDown() {
       isMouseDown = true;
-    }
+    };
 
     function onMouseUp() {
       isMouseDown = false;
-    }
+    };
 
     window.addEventListener('pointermove', onPointerMove);
     window.requestAnimationFrame(render);
 
     const animate = () => {
       if (isMouseDown = false) {
-        boxMesh.rotation.x += 0.001;
-        boxMesh.rotation.y += 0.001;
+        mesh.rotation.x += 0.001;
+        mesh.rotation.y += 0.001;
+        mesh.rotation.y += 0.001;
       }
       controls.update();
       renderer.render(scene, camera);
@@ -98,11 +99,20 @@ function App() {
     animate();
   }, []);
 
+  window.addEventListener( 'resize', onWindowResize, false );
+
+  function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    render();
+  };
+
   return (
     <div>
-      <canvas id="myThreeJsCanvas" />
+      <canvas id="myThreeJsCanvas"/>
     </div>
   );
-}
+};
 
 export default App;
