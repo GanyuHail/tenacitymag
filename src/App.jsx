@@ -55,12 +55,29 @@ function App() {
       renderer.render(scene, camera);
     }
 
+    var isMouseDown = false;
+
+    function init() {
+      window.addEventListener('mousedown', onMouseDown);
+      window.addEventListener('mouseup', onMouseUp);
+    }
+
+    function onMouseDown() {
+      isMouseDown = true;
+    }
+
+    function onMouseUp() {
+      isMouseDown = false;
+    }
+
     window.addEventListener('pointermove', onPointerMove);
     window.requestAnimationFrame(render);
 
     const animate = () => {
-      boxMesh.rotation.x += 0.01;
-      boxMesh.rotation.y += 0.01;
+      if (!isMouseDown) {
+        boxMesh.rotation.x += 0.001;
+        boxMesh.rotation.y += 0.001;
+      }
       controls.update();
       renderer.render(scene, camera);
       window.requestAnimationFrame(animate);
