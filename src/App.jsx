@@ -51,7 +51,7 @@ function App() {
 
       raycaster.setFromCamera(pointer, camera);
 
-      var intersects = raycaster.intersectObject(boxMesh);
+      var intersects = raycaster.intersectObject(mesh);
 
       for (var i = 0; i < intersects.length; i++) {
         var faceIndex = intersects[i].faceIndex;
@@ -87,11 +87,11 @@ function App() {
     window.requestAnimationFrame(render);
 
     const animate = () => {
-      if (isMouseDown = false) {
+      
         mesh.rotation.x += 0.001;
         mesh.rotation.y += 0.001;
         mesh.rotation.y += 0.001;
-      }
+      
       controls.update();
       renderer.render(scene, camera);
       window.requestAnimationFrame(animate);
