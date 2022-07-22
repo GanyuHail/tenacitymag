@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import * as THREE from 'three';  
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
-import Stats from 'three/examples/jsm/libs/stats.module';
 
 function App() {
   useEffect(() => {
@@ -38,9 +37,6 @@ function App() {
     scene.add(boxMesh);
 
     const controls = new OrbitControls(camera, renderer.domElement);
-
-    const stats = Stats();
-    document.body.appendChild(stats.dom);
 
     const animate = () => {
       boxMesh.rotation.x += 0.01;
