@@ -32,10 +32,11 @@ function App() {
     spotLight.position.set(0, 64, 32);
     scene.add(spotLight);
 
-    const boxGeometry = new THREE.SphereGeometry(12, 48, 48);
-    const boxMaterial = new THREE.MeshNormalMaterial();
-    const boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
-    scene.add(boxMesh);
+    const sphereGeometry = new THREE.SphereGeometry(12, 64, 32);
+    const sphereTexture = new THREE.TextureLoader().load('https://raw.githubusercontent.com/GanyuHail/3dArt/main/uniPinch1.jpg');
+    const sphereMaterial = new THREE.MeshBasicMaterial({ map: sphereTexture });
+    const sphereMesh = new THREE.Mesh(sphereGeometry, sphereMaterial);
+    scene.add(sphereMesh);
 
     const controls = new OrbitControls(camera, renderer.domElement);
 
@@ -51,7 +52,7 @@ function App() {
 
       raycaster.setFromCamera(pointer, camera);
 
-      var intersects = raycaster.intersectObject(boxMesh);
+      var intersects = raycaster.intersectObject(sphereMesh);
 
       for (var i = 0; i < intersects.length; i++) {
         var faceIndex = intersects[i].faceIndex;
@@ -69,8 +70,8 @@ function App() {
     };
 
     const animate = () => {
-        boxMesh.rotation.x += 0.001;
-        boxMesh.rotation.y += 0.001;
+      sphereMesh.rotation.x += 0.001;
+      sphereMesh.rotation.y += 0.001;
       controls.update();
       renderer.render(scene, camera);
       window.requestAnimationFrame(animate);
@@ -78,18 +79,18 @@ function App() {
     animate();
   }, []);
 
-  window.addEventListener( 'resize', onWindowResize, false );
+  window.addEventListener('resize', onWindowResize, false);
 
   function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
-    renderer.setSize( window.innerWidth, window.innerHeight );
+    renderer.setSize(window.innerWidth, window.innerHeight);
     render();
   };
 
   return (
     <div>
-      <canvas id="myThreeJsCanvas"/>
+      <canvas id="myThreeJsCanvas" />
     </div>
   );
 };
