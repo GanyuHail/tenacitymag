@@ -37,27 +37,9 @@ function App() {
     const sphereMesh = new THREE.Mesh(sphereGeometry, sphereMaterial);
     scene.add(sphereMesh);
 
-    sphereGeometry.userData = { URL: "http://google.com" };
+    sphereGeometry.userData = { URL: "https://github.com/GanyuHail/3dArt/blob/main/Hi%20Res%20-.jpg" };
 
     const controls = new OrbitControls(camera, renderer.domElement);
-
-    const raycaster = new THREE.Raycaster();
-    const pointer = new THREE.Vector2();
-
-    function onPointerMove(event) {
-      pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
-      pointer.y = - (event.clientY / window.innerHeight) * 2 + 1;
-    }
-
-    function render() {
-
-      raycaster.setFromCamera(pointer, camera);
-      var intersects = raycaster.intersectObject(sphereGeometry);
-        if (intersects.length > 0) {
-          window.open(intersects[0].object.userData.URL);
-        }
-      renderer.render(scene, camera);
-    };
 
     const animate = () => {
       sphereMesh.rotation.x += 0.001;
