@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import * as THREE from 'three';
-import { SphereGeometry } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 function App() {
@@ -38,6 +37,8 @@ function App() {
     const sphereMesh = new THREE.Mesh(sphereGeometry, sphereMaterial);
     scene.add(sphereMesh);
 
+    sphereGeometry.userData = { URL: "http://google.com" };
+
     const controls = new OrbitControls(camera, renderer.domElement);
 
     const raycaster = new THREE.Raycaster();
@@ -51,21 +52,10 @@ function App() {
     function render() {
 
       raycaster.setFromCamera(pointer, camera);
-
-      var intersects = raycaster.intersectObject(sphereMesh);
-
-      for (var i = 0; i < intersects.length; i++) {
-        var faceIndex = intersects[i].faceIndex;
-        if (faceIndex == 0 || (faceIndex % 2) == 0) {
-          intersects[i].object.geometry.faces[faceIndex].color.setHex(0xffffff);
-          intersects[i].object.geometry.faces[faceIndex + 1].color.setHex(0xffffff);
-          intersects[i].object.geometry.colorsNeedUpdate = true;
-        } else {
-          intersects[i].object.geometry.faces[faceIndex].color.setHex(0xffffff);
-          intersects[i].object.geometry.faces[faceIndex - 1].color.setHex(0xffffff);
-          intersects[i].object.geometry.colorsNeedUpdate = true;
+      var intersects = raycaster.intersectObject(sphereGeometry);
+        if (intersects.length > 0) {
+          window.open(intersects[0].object.userData.URL);
         }
-      }
       renderer.render(scene, camera);
     };
 
@@ -78,15 +68,6 @@ function App() {
     };
     animate();
   }, []);
-
-  window.addEventListener('resize', onWindowResize, false);
-
-  function onWindowResize() {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    render();
-  };
 
   return (
     <div>
