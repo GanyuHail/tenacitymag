@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import * as THREE from 'three';
-import { BoxGeometry } from 'three';
+import { SphereGeometry } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 function App() {
@@ -32,7 +32,7 @@ function App() {
     spotLight.position.set(0, 64, 32);
     scene.add(spotLight);
 
-    const boxGeometry = new THREE.BoxGeometry(30, 15, 10);
+    const boxGeometry = new THREE.SphereGeometry(30, 15, 10);
     const boxMaterial = new THREE.MeshNormalMaterial();
     const boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
     scene.add(boxMesh);
