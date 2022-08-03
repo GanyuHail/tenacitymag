@@ -32,7 +32,7 @@ function App() {
     spotLight.position.set(0, 64, 32);
     scene.add(spotLight);
 
-    const boxGeometry = new THREE.SphereGeometry(30, 15, 10);
+    const boxGeometry = new THREE.SphereGeometry(12, 48, 48);
     const boxMaterial = new THREE.MeshNormalMaterial();
     const boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
     scene.add(boxMesh);
