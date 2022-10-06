@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import * as THREE from 'three';
+import { GLTFLoader } from 'three-gltf-loader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import GLTFLoader from 'three-gltf-loader';
 
 function App() {
   useEffect(() => {
@@ -25,11 +25,13 @@ function App() {
 
     const ambientLight = new THREE.AmbientLight(0xFFC0CB, 0.5);
     ambientLight.castShadow = true;
+    ambientLight.physicallyCorrectLights = true;
     scene.add(ambientLight);
 
     const spotLight = new THREE.SpotLight(0xffffff, 1);
     spotLight.castShadow = true;
     spotLight.position.set(0, 64, 32);
+    spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
 
     //const sphereGeometry = new THREE.SphereGeometry(12, 64, 32);
@@ -38,20 +40,14 @@ function App() {
     //const sphereMesh = new THREE.Mesh(sphereGeometry, sphereMaterial);
     //scene.add(sphereMesh);
 
-    const loader = new GLTFLoader();
-    loader.load('baesLogo1.gltf',
-  
-      function (gltf) {
+    const loader = new GLTFLoader().setPath('src/');
+    loader.load('baesLogo1.gltf', function (gltf) {
 
-        scene.add(gltf.scene);
+      scene.add(gltf.scene);
 
-        gltf.animations; // Array<THREE.AnimationClip>
-        gltf.scene; // THREE.Group
-        gltf.scenes; // Array<THREE.Group>
-        gltf.cameras; // Array<THREE.Camera>
-        gltf.asset; // Object
-      }
-    );
+      render();
+
+    });
 
     sphereGeometry.userData = { URL: "https://github.com/GanyuHail/3dArt/blob/main/Hi%20Res%20-.jpg" };
 
