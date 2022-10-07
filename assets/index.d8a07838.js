@@ -37534,7 +37534,7 @@ function App() {
     spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
     console.log(threeGltfLoader);
-    const loader = new threeGltfLoader().setPath("src/");
+    const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/bl3/main/src/");
     loader.load("baesLogo1.gltf", function(gltf) {
       scene.add(gltf.scene);
       render();
