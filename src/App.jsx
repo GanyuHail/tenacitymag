@@ -40,6 +40,7 @@ function App() {
     //const sphereMesh = new THREE.Mesh(sphereGeometry, sphereMaterial);
     //scene.add(sphereMesh);
 
+    console.log(GLTFLoader);
     const loader = new GLTFLoader().setPath('src/');
     loader.load('baesLogo1.gltf', function (gltf) {
 
