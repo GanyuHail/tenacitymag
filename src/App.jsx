@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import * as THREE from 'three';
-import { GLTFLoader } from 'three-gltf-loader';
+import GLTFLoader from 'three-gltf-loader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 function App() {
@@ -41,7 +41,7 @@ function App() {
     //scene.add(sphereMesh);
 
     console.log(GLTFLoader);
-    const loader = new GLTFLoader().setPath('src/');
+    const loader = new GLTFLoader().setPath('https://raw.githubusercontent.com/GanyuHail/bl3/main/src/');
     loader.load('baesLogo1.gltf', function (gltf) {
 
       scene.add(gltf.scene);
@@ -50,13 +50,13 @@ function App() {
 
     });
 
-    sphereGeometry.userData = { URL: "https://github.com/GanyuHail/3dArt/blob/main/Hi%20Res%20-.jpg" };
+    //sphereGeometry.userData = { URL: "https://github.com/GanyuHail/3dArt/blob/main/Hi%20Res%20-.jpg" };
 
     const controls = new OrbitControls(camera, renderer.domElement);
 
     const animate = () => {
-      sphereMesh.rotation.x += 0.001;
-      sphereMesh.rotation.y += 0.001;
+      //gltf.scene.rotation.x += 0.001;
+      //gltf.scene.rotation.y += 0.001;
       controls.update();
       renderer.render(scene, camera);
       window.requestAnimationFrame(animate);

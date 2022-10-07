@@ -15,7 +15,7 @@
     "gh-pages": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "three": "^0.142.0",
+    "three": "0.111.0",
     "three-gltf-loader": "^1.111.0",
     "three-orbitcontrols": "^2.110.3"
   },
