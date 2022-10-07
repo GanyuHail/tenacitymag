@@ -37539,13 +37539,8 @@ function App() {
       scene.add(gltf.scene);
       render();
     });
-    sphereGeometry.userData = {
-      URL: "https://github.com/GanyuHail/3dArt/blob/main/Hi%20Res%20-.jpg"
-    };
     const controls = new OrbitControls(camera, renderer.domElement);
     const animate = () => {
-      sphereMesh.rotation.x += 1e-3;
-      sphereMesh.rotation.y += 1e-3;
       controls.update();
       renderer.render(scene, camera);
       window.requestAnimationFrame(animate);
