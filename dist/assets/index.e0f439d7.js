@@ -13162,7 +13162,7 @@ function DirectGeometry() {
 }
 Object.assign(DirectGeometry.prototype, {
   computeGroups: function(geometry) {
-    var group2;
+    var group;
     var groups = [];
     var materialIndex = void 0;
     var faces = geometry.faces;
@@ -13170,19 +13170,19 @@ Object.assign(DirectGeometry.prototype, {
       var face = faces[i];
       if (face.materialIndex !== materialIndex) {
         materialIndex = face.materialIndex;
-        if (group2 !== void 0) {
-          group2.count = i * 3 - group2.start;
-          groups.push(group2);
+        if (group !== void 0) {
+          group.count = i * 3 - group.start;
+          groups.push(group);
         }
-        group2 = {
+        group = {
           start: i * 3,
           materialIndex
         };
       }
     }
-    if (group2 !== void 0) {
-      group2.count = i * 3 - group2.start;
-      groups.push(group2);
+    if (group !== void 0) {
+      group.count = i * 3 - group.start;
+      groups.push(group);
     }
     this.groups = groups;
   },
@@ -13797,8 +13797,8 @@ BufferGeometry.prototype = Object.assign(Object.create(EventDispatcher.prototype
     geometry2.morphTargetsRelative = this.morphTargetsRelative;
     var groups = this.groups;
     for (var i = 0, l2 = groups.length; i < l2; i++) {
-      var group2 = groups[i];
-      geometry2.addGroup(group2.start, group2.count, group2.materialIndex);
+      var group = groups[i];
+      geometry2.addGroup(group.start, group.count, group.materialIndex);
     }
     return geometry2;
   },
@@ -13907,8 +13907,8 @@ BufferGeometry.prototype = Object.assign(Object.create(EventDispatcher.prototype
     this.morphTargetsRelative = source.morphTargetsRelative;
     var groups = source.groups;
     for (i = 0, l2 = groups.length; i < l2; i++) {
-      var group2 = groups[i];
-      this.addGroup(group2.start, group2.count, group2.materialIndex);
+      var group = groups[i];
+      this.addGroup(group.start, group.count, group.materialIndex);
     }
     var boundingBox = source.boundingBox;
     if (boundingBox !== null) {
@@ -14028,15 +14028,15 @@ Mesh.prototype = Object.assign(Object.create(Object3D.prototype), {
       var groups = geometry.groups;
       var drawRange = geometry.drawRange;
       var i, j, il2, jl2;
-      var group2, groupMaterial;
+      var group, groupMaterial;
       var start, end;
       if (index2 !== null) {
         if (Array.isArray(material)) {
           for (i = 0, il2 = groups.length; i < il2; i++) {
-            group2 = groups[i];
-            groupMaterial = material[group2.materialIndex];
-            start = Math.max(group2.start, drawRange.start);
-            end = Math.min(group2.start + group2.count, drawRange.start + drawRange.count);
+            group = groups[i];
+            groupMaterial = material[group.materialIndex];
+            start = Math.max(group.start, drawRange.start);
+            end = Math.min(group.start + group.count, drawRange.start + drawRange.count);
             for (j = start, jl2 = end; j < jl2; j += 3) {
               a = index2.getX(j);
               b = index2.getX(j + 1);
@@ -14044,7 +14044,7 @@ Mesh.prototype = Object.assign(Object.create(Object3D.prototype), {
               intersection = checkBufferGeometryIntersection(this, groupMaterial, raycaster, _ray, position, morphPosition, morphTargetsRelative, uv, uv2, a, b, c);
               if (intersection) {
                 intersection.faceIndex = Math.floor(j / 3);
-                intersection.face.materialIndex = group2.materialIndex;
+                intersection.face.materialIndex = group.materialIndex;
                 intersects2.push(intersection);
               }
             }
@@ -14066,10 +14066,10 @@ Mesh.prototype = Object.assign(Object.create(Object3D.prototype), {
       } else if (position !== void 0) {
         if (Array.isArray(material)) {
           for (i = 0, il2 = groups.length; i < il2; i++) {
-            group2 = groups[i];
-            groupMaterial = material[group2.materialIndex];
-            start = Math.max(group2.start, drawRange.start);
-            end = Math.min(group2.start + group2.count, drawRange.start + drawRange.count);
+            group = groups[i];
+            groupMaterial = material[group.materialIndex];
+            start = Math.max(group.start, drawRange.start);
+            end = Math.min(group.start + group.count, drawRange.start + drawRange.count);
             for (j = start, jl2 = end; j < jl2; j += 3) {
               a = j;
               b = j + 1;
@@ -14077,7 +14077,7 @@ Mesh.prototype = Object.assign(Object.create(Object3D.prototype), {
               intersection = checkBufferGeometryIntersection(this, groupMaterial, raycaster, _ray, position, morphPosition, morphTargetsRelative, uv, uv2, a, b, c);
               if (intersection) {
                 intersection.faceIndex = Math.floor(j / 3);
-                intersection.face.materialIndex = group2.materialIndex;
+                intersection.face.materialIndex = group.materialIndex;
                 intersects2.push(intersection);
               }
             }
@@ -14342,14 +14342,14 @@ Geometry.prototype = Object.assign(Object.create(EventDispatcher.prototype), {
     var groups = geometry.groups;
     if (groups.length > 0) {
       for (var i = 0; i < groups.length; i++) {
-        var group2 = groups[i];
-        var start = group2.start;
-        var count = group2.count;
+        var group = groups[i];
+        var start = group.start;
+        var count = group.count;
         for (var j = start, jl2 = start + count; j < jl2; j += 3) {
           if (indices !== void 0) {
-            addFace(indices[j], indices[j + 1], indices[j + 2], group2.materialIndex);
+            addFace(indices[j], indices[j + 1], indices[j + 2], group.materialIndex);
           } else {
-            addFace(j, j + 1, j + 2, group2.materialIndex);
+            addFace(j, j + 1, j + 2, group.materialIndex);
           }
         }
       }
@@ -16295,7 +16295,7 @@ function WebGLBackground(renderer, state, objects, premultipliedAlpha) {
   var boxMesh;
   var currentBackground = null;
   var currentBackgroundVersion = 0;
-  function render2(renderList, scene, camera, forceClear) {
+  function render(renderList, scene, camera, forceClear) {
     var background = scene.background;
     var vr = renderer.vr;
     var session = vr.getSession && vr.getSession();
@@ -16400,7 +16400,7 @@ function WebGLBackground(renderer, state, objects, premultipliedAlpha) {
       clearAlpha = alpha;
       setClear(clearColor, clearAlpha);
     },
-    render: render2
+    render
   };
 }
 function WebGLBufferRenderer(gl2, extensions, info, capabilities) {
@@ -16409,7 +16409,7 @@ function WebGLBufferRenderer(gl2, extensions, info, capabilities) {
   function setMode(value) {
     mode = value;
   }
-  function render2(start, count) {
+  function render(start, count) {
     gl2.drawArrays(mode, start, count);
     info.update(count, mode);
   }
@@ -16432,7 +16432,7 @@ function WebGLBufferRenderer(gl2, extensions, info, capabilities) {
     info.update(count, mode, primcount);
   }
   this.setMode = setMode;
-  this.render = render2;
+  this.render = render;
   this.renderInstances = renderInstances;
 }
 function WebGLCapabilities(gl2, extensions, parameters) {
@@ -16722,7 +16722,7 @@ function WebGLIndexedBufferRenderer(gl2, extensions, info, capabilities) {
     type = value.type;
     bytesPerElement = value.bytesPerElement;
   }
-  function render2(start, count) {
+  function render(start, count) {
     gl2.drawElements(mode, count, type, start * bytesPerElement);
     info.update(count, mode);
   }
@@ -16746,7 +16746,7 @@ function WebGLIndexedBufferRenderer(gl2, extensions, info, capabilities) {
   }
   this.setMode = setMode;
   this.setIndex = setIndex;
-  this.render = render2;
+  this.render = render;
   this.renderInstances = renderInstances;
 }
 function WebGLInfo(gl2) {
@@ -16754,7 +16754,7 @@ function WebGLInfo(gl2) {
     geometries: 0,
     textures: 0
   };
-  var render2 = {
+  var render = {
     frame: 0,
     calls: 0,
     triangles: 0,
@@ -16763,26 +16763,26 @@ function WebGLInfo(gl2) {
   };
   function update(count, mode, instanceCount) {
     instanceCount = instanceCount || 1;
-    render2.calls++;
+    render.calls++;
     switch (mode) {
       case 4:
-        render2.triangles += instanceCount * (count / 3);
+        render.triangles += instanceCount * (count / 3);
         break;
       case 5:
       case 6:
-        render2.triangles += instanceCount * (count - 2);
+        render.triangles += instanceCount * (count - 2);
         break;
       case 1:
-        render2.lines += instanceCount * (count / 2);
+        render.lines += instanceCount * (count / 2);
         break;
       case 3:
-        render2.lines += instanceCount * (count - 1);
+        render.lines += instanceCount * (count - 1);
         break;
       case 2:
-        render2.lines += instanceCount * count;
+        render.lines += instanceCount * count;
         break;
       case 0:
-        render2.points += instanceCount * count;
+        render.points += instanceCount * count;
         break;
       default:
         console.error("THREE.WebGLInfo: Unknown draw mode:", mode);
@@ -16790,15 +16790,15 @@ function WebGLInfo(gl2) {
     }
   }
   function reset() {
-    render2.frame++;
-    render2.calls = 0;
-    render2.triangles = 0;
-    render2.points = 0;
-    render2.lines = 0;
+    render.frame++;
+    render.calls = 0;
+    render.triangles = 0;
+    render.points = 0;
+    render.lines = 0;
   }
   return {
     memory,
-    render: render2,
+    render,
     programs: null,
     autoReset: true,
     reset,
@@ -18231,7 +18231,7 @@ function WebGLRenderList() {
     opaque.length = 0;
     transparent.length = 0;
   }
-  function getNextRenderItem(object, geometry, material, groupOrder, z2, group2) {
+  function getNextRenderItem(object, geometry, material, groupOrder, z2, group) {
     var renderItem = renderItems[renderItemsIndex];
     if (renderItem === void 0) {
       renderItem = {
@@ -18243,7 +18243,7 @@ function WebGLRenderList() {
         groupOrder,
         renderOrder: object.renderOrder,
         z: z2,
-        group: group2
+        group
       };
       renderItems[renderItemsIndex] = renderItem;
     } else {
@@ -18255,17 +18255,17 @@ function WebGLRenderList() {
       renderItem.groupOrder = groupOrder;
       renderItem.renderOrder = object.renderOrder;
       renderItem.z = z2;
-      renderItem.group = group2;
+      renderItem.group = group;
     }
     renderItemsIndex++;
     return renderItem;
   }
-  function push(object, geometry, material, groupOrder, z2, group2) {
-    var renderItem = getNextRenderItem(object, geometry, material, groupOrder, z2, group2);
+  function push(object, geometry, material, groupOrder, z2, group) {
+    var renderItem = getNextRenderItem(object, geometry, material, groupOrder, z2, group);
     (material.transparent === true ? transparent : opaque).push(renderItem);
   }
-  function unshift(object, geometry, material, groupOrder, z2, group2) {
-    var renderItem = getNextRenderItem(object, geometry, material, groupOrder, z2, group2);
+  function unshift(object, geometry, material, groupOrder, z2, group) {
+    var renderItem = getNextRenderItem(object, geometry, material, groupOrder, z2, group);
     (material.transparent === true ? transparent : opaque).unshift(renderItem);
   }
   function sort() {
@@ -18917,11 +18917,11 @@ function WebGLShadowMap(_renderer, _objects, maxTextureSize) {
         if (Array.isArray(material)) {
           var groups = geometry.groups;
           for (var k2 = 0, kl2 = groups.length; k2 < kl2; k2++) {
-            var group2 = groups[k2];
-            var groupMaterial = material[group2.materialIndex];
+            var group = groups[k2];
+            var groupMaterial = material[group.materialIndex];
             if (groupMaterial && groupMaterial.visible) {
               var depthMaterial = getDepthMaterial(object, groupMaterial, light, shadowCamera.near, shadowCamera.far, type);
-              _renderer.renderBufferDirect(shadowCamera, null, geometry, depthMaterial, object, group2);
+              _renderer.renderBufferDirect(shadowCamera, null, geometry, depthMaterial, object, group);
             }
           }
         } else if (material.visible) {
@@ -21231,7 +21231,7 @@ function WebGLRenderer(parameters) {
     _gl.drawArrays(4, 0, object.count);
     object.count = 0;
   };
-  this.renderBufferDirect = function(camera, fog, geometry, material, object, group2) {
+  this.renderBufferDirect = function(camera, fog, geometry, material, object, group) {
     var frontFaceCW = object.isMesh && object.matrixWorld.determinant() < 0;
     state.setMaterial(material, frontFaceCW);
     var program = setProgram(camera, fog, material, object);
@@ -21278,8 +21278,8 @@ function WebGLRenderer(parameters) {
     }
     var rangeStart = geometry.drawRange.start * rangeFactor;
     var rangeCount = geometry.drawRange.count * rangeFactor;
-    var groupStart = group2 !== null ? group2.start * rangeFactor : 0;
-    var groupCount = group2 !== null ? group2.count * rangeFactor : Infinity;
+    var groupStart = group !== null ? group.start * rangeFactor : 0;
+    var groupCount = group !== null ? group.count * rangeFactor : Infinity;
     var drawStart = Math.max(rangeStart, groupStart);
     var drawEnd = Math.min(dataCount, rangeStart + rangeCount, groupStart + groupCount) - 1;
     var drawCount = Math.max(0, drawEnd - drawStart + 1);
@@ -21588,10 +21588,10 @@ function WebGLRenderer(parameters) {
           if (Array.isArray(material)) {
             var groups = geometry.groups;
             for (var i = 0, l2 = groups.length; i < l2; i++) {
-              var group2 = groups[i];
-              var groupMaterial = material[group2.materialIndex];
+              var group = groups[i];
+              var groupMaterial = material[group.materialIndex];
               if (groupMaterial && groupMaterial.visible) {
-                currentRenderList.push(object, geometry, groupMaterial, groupOrder, _vector3.z, group2);
+                currentRenderList.push(object, geometry, groupMaterial, groupOrder, _vector3.z, group);
               }
             }
           } else if (material.visible) {
@@ -21611,11 +21611,11 @@ function WebGLRenderer(parameters) {
       var object = renderItem.object;
       var geometry = renderItem.geometry;
       var material = overrideMaterial === void 0 ? renderItem.material : overrideMaterial;
-      var group2 = renderItem.group;
+      var group = renderItem.group;
       if (camera.isArrayCamera) {
         _currentArrayCamera = camera;
         if (vr.enabled && multiview.isAvailable()) {
-          renderObject(object, scene, camera, geometry, material, group2);
+          renderObject(object, scene, camera, geometry, material, group);
         } else {
           var cameras = camera.cameras;
           for (var j = 0, jl2 = cameras.length; j < jl2; j++) {
@@ -21623,18 +21623,18 @@ function WebGLRenderer(parameters) {
             if (object.layers.test(camera2.layers)) {
               state.viewport(_currentViewport.copy(camera2.viewport));
               currentRenderState.setupLights(camera2);
-              renderObject(object, scene, camera2, geometry, material, group2);
+              renderObject(object, scene, camera2, geometry, material, group);
             }
           }
         }
       } else {
         _currentArrayCamera = null;
-        renderObject(object, scene, camera, geometry, material, group2);
+        renderObject(object, scene, camera, geometry, material, group);
       }
     }
   }
-  function renderObject(object, scene, camera, geometry, material, group2) {
-    object.onBeforeRender(_this, scene, camera, geometry, material, group2);
+  function renderObject(object, scene, camera, geometry, material, group) {
+    object.onBeforeRender(_this, scene, camera, geometry, material, group);
     currentRenderState = renderStates.get(scene, _currentArrayCamera || camera);
     object.modelViewMatrix.multiplyMatrices(camera.matrixWorldInverse, object.matrixWorld);
     object.normalMatrix.getNormalMatrix(object.modelViewMatrix);
@@ -21646,9 +21646,9 @@ function WebGLRenderer(parameters) {
       _currentGeometryProgram.wireframe = false;
       renderObjectImmediate(object, program);
     } else {
-      _this.renderBufferDirect(camera, scene.fog, geometry, material, object, group2);
+      _this.renderBufferDirect(camera, scene.fog, geometry, material, object, group);
     }
-    object.onAfterRender(_this, scene, camera, geometry, material, group2);
+    object.onAfterRender(_this, scene, camera, geometry, material, group);
     currentRenderState = renderStates.get(scene, _currentArrayCamera || camera);
   }
   function initMaterial(material, fog, object) {
@@ -23319,7 +23319,7 @@ function WireframeGeometry(geometry) {
     }
   } else if (geometry && geometry.isBufferGeometry) {
     var position, indices, groups;
-    var group2, start, count;
+    var group, start, count;
     var index1, index2;
     vertex = new Vector3();
     if (geometry.index !== null) {
@@ -23330,9 +23330,9 @@ function WireframeGeometry(geometry) {
         groups = [{ start: 0, count: indices.count, materialIndex: 0 }];
       }
       for (o = 0, ol2 = groups.length; o < ol2; ++o) {
-        group2 = groups[o];
-        start = group2.start;
-        count = group2.count;
+        group = groups[o];
+        start = group.start;
+        count = group.count;
         for (i = start, l2 = start + count; i < l2; i += 3) {
           for (j = 0; j < 3; j++) {
             edge1 = indices.getX(i + j);
@@ -29401,8 +29401,8 @@ BufferGeometryLoader.prototype = Object.assign(Object.create(Loader.prototype), 
     var groups = json.data.groups || json.data.drawcalls || json.data.offsets;
     if (groups !== void 0) {
       for (var i = 0, n2 = groups.length; i !== n2; ++i) {
-        var group2 = groups[i];
-        geometry.addGroup(group2.start, group2.count, group2.materialIndex);
+        var group = groups[i];
+        geometry.addGroup(group.start, group.count, group.materialIndex);
       }
     }
     var boundingSphere = json.data.boundingSphere;
@@ -36564,11 +36564,11 @@ var _GLTFLoader = function() {
         if (meshes.length === 1) {
           return meshes[0];
         }
-        var group2 = new THREE$1.Group();
+        var group = new THREE$1.Group();
         for (var i2 = 0, il3 = meshes.length; i2 < il3; i2++) {
-          group2.add(meshes[i2]);
+          group.add(meshes[i2]);
         }
-        return group2;
+        return group;
       });
     });
   };
@@ -37514,27 +37514,6 @@ reactJsxRuntime_production_min.jsxs = q;
 const jsx = jsxRuntime.exports.jsx;
 function App() {
   react.exports.useEffect(() => {
-    var progress = document.createElement("div");
-    var progressBar = document.createElement("div");
-    progress.appendChild(progressBar);
-    document.body.appendChild(progress);
-    var manager = new LoadingManager();
-    manager.onProgress = function(item, loaded, total) {
-      progressBar.style.width = loaded / total * 100 + "%";
-    };
-    function addRandomPlaceHoldItImage() {
-      var r2 = Math.round(Math.random() * 4e3);
-      new ImageLoader(manager).load("https://freight.cargo.site/t/original/i/bbe49bb129e6a1d3cef7c48208958ccbf3c2cf9c869ebf9ec8a5acb6dbd1f6ce/Baseianz-planet-red-green-white-10.ico" + r2 + "/" + r2);
-    }
-    for (var i = 0; i < 10; i++)
-      addRandomPlaceHoldItImage();
-    const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/bl3/main/src/");
-    loader.load("baesLogoMaster4.gltf", function(gltf) {
-      scene.add(gltf.scene);
-      scene.rotation.x += 0.01;
-      scene.rotation.y += 0.01;
-      console.log(scene.rotation);
-    });
     const scene = new Scene();
     const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 500);
     camera.position.x = 0;
@@ -37557,34 +37536,12 @@ function App() {
     spotLight.position.set(12, 64, 32);
     spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
+    const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/bl3/main/src/");
+    loader.load("baesLogoMaster4.gltf", function(gltf) {
+      scene.add(gltf.scene);
+      console.log(scene.rotation);
+    });
     const controls = new OrbitControls(camera, renderer.domElement);
-    const raycaster = new Raycaster();
-    const pointer = new Vector2();
-    function onPointerMove(event) {
-      pointer.x = event.clientX / window.innerWidth * 2 - 1;
-      pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    }
-    function onPointerMove(event) {
-      if (selectedObject) {
-        selectedObject.material.color.set("#69f");
-        selectedObject = null;
-      }
-      pointer.x = event.clientX / window.innerWidth * 2 - 1;
-      pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
-      raycaster.setFromCamera(pointer, camera);
-      const intersects2 = raycaster.intersectObject(group, true);
-      if (intersects2.length > 0) {
-        const res = intersects2.filter(function(res2) {
-          return res2 && res2.object;
-        })[0];
-        if (res && res.object) {
-          selectedObject = res.object;
-          selectedObject.material.color.set("#f00");
-        }
-      }
-    }
-    window.addEventListener("pointermove", onPointerMove);
-    window.requestAnimationFrame(render);
     const animate = () => {
       controls.update();
       renderer.render(scene, camera);
