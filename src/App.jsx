@@ -42,7 +42,7 @@ function App() {
 
     console.log(GLTFLoader);
     const loader = new GLTFLoader().setPath('https://raw.githubusercontent.com/GanyuHail/bl3/main/src/');
-    loader.load('baesLogoMaster.glb', function (gltf) {
+    loader.load('baesLogoMaster.gltf', function (gltf) {
 
       scene.add(gltf.scene);
 
