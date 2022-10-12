@@ -37534,7 +37534,7 @@ function App() {
     spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
     const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/bl3/main/src/");
-    loader.load("baesLogoMaster2.gltf", function(gltf) {
+    loader.load("baesLogoMaster4.gltf", function(gltf) {
       scene.add(gltf.scene);
     });
     const controls = new OrbitControls(camera, renderer.domElement);
