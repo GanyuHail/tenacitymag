@@ -35208,8 +35208,8 @@ var _GLTFLoader = function() {
       }
       loader.load(url, function(data) {
         try {
-          scope.parse(data, resourcePath, function(gltf2) {
-            onLoad(gltf2);
+          scope.parse(data, resourcePath, function(gltf) {
+            onLoad(gltf);
             scope.manager.itemEnd(url);
           }, _onError);
         } catch (e) {
@@ -37516,9 +37516,8 @@ function App() {
   react.exports.useEffect(() => {
     const scene = new Scene();
     const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 1e3);
-    camera.position.x = 0;
-    camera.position.y = 10;
-    camera.position.z = 12;
+    camera.position.z = 96;
+    camera.position.y = 8;
     camera.lookAt(0, 0, 0);
     const canvas = document.getElementById("myThreeJsCanvas");
     const renderer = new WebGLRenderer({
@@ -37526,7 +37525,6 @@ function App() {
       antialias: true
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    np;
     document.body.appendChild(renderer.domElement);
     const ambientLight = new AmbientLight(16761035, 1);
     ambientLight.castShadow = true;
@@ -37538,8 +37536,8 @@ function App() {
     spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
     const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/bl3/main/src/");
-    loader.load("baesLogoMaster4.gltf", function(gltf2) {
-      scene.add(gltf2.scene);
+    loader.load("baesLogoMaster4.gltf", function(gltf) {
+      scene.add(gltf.scene);
     });
     const controls = new OrbitControls(camera, renderer.domElement);
     const raycaster = new Raycaster();
@@ -37553,15 +37551,13 @@ function App() {
       raycaster.setFromCamera(pointer, camera);
       const intersects2 = raycaster.intersectObjects(scene.children);
       for (let i = 0; i < intersects2.length; i++) {
-        intersects2[i].window.open("https://www.google.com");
+        intersects2[i].window.open("/google.com");
       }
       renderer.render(scene, camera);
     }
     window.addEventListener("pointermove", onPointerMove);
     window.requestAnimationFrame(render);
     const animate = () => {
-      gltf.scene.rotation.x += 1e-3;
-      gltf.scene.rotation.y += 1e-3;
       controls.update();
       renderer.render(scene, camera);
       window.requestAnimationFrame(animate);
