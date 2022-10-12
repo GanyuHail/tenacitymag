@@ -37536,9 +37536,26 @@ function App() {
     spotLight.position.set(12, 64, 32);
     spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
+    var progress = document.createElement("div");
+    var progressBar = document.createElement("div");
+    progress.appendChild(progressBar);
+    document.body.appendChild(progress);
+    var manager = new LoadingManager();
+    manager.onProgress = function(item, loaded, total) {
+      progressBar.style.width = loaded / total * 100 + "%";
+    };
+    function addRandomPlaceHoldItImage() {
+      var r2 = Math.round(Math.random() * 4e3);
+      new ImageLoader(manager).load("//picsum.photos/" + r2 + "/" + r2);
+    }
+    for (var i = 0; i < 10; i++)
+      addRandomPlaceHoldItImage();
     const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/bl3/main/src/");
     loader.load("baesLogoMaster4.gltf", function(gltf) {
       scene.add(gltf.scene);
+      scene.rotation.x += 0.01;
+      scene.rotation.y += 0.01;
+      console.log(scene.rotation);
     });
     const controls = new OrbitControls(camera, renderer.domElement);
     const raycaster = new Raycaster();
@@ -37551,8 +37568,8 @@ function App() {
     function render() {
       raycaster.setFromCamera(pointer, camera);
       const intersects2 = raycaster.intersectObjects(scene.children);
-      for (let i = 0; i < intersects2.length; i++) {
-        intersects2[i].window.open("/google.com");
+      for (let i2 = 0; i2 < intersects2.length; i2++) {
+        intersects2[i2].window.open("/google.com");
       }
       renderer.render(scene, camera);
     }
