@@ -37515,6 +37515,8 @@ const jsx = jsxRuntime.exports.jsx;
 function App() {
   react.exports.useEffect(() => {
     const scene = new Scene();
+    scene.background = new Color(16777215);
+    scene.fog = 1;
     const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 1e3);
     camera.position.z = 96;
     const canvas = document.getElementById("myThreeJsCanvas");

@@ -6,6 +6,8 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 function App() {
   useEffect(() => {
     const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xffffff);
+    scene.fog = 1; 
 
     const camera = new THREE.PerspectiveCamera(
       50,
