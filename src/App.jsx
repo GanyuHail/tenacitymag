@@ -15,7 +15,7 @@ function App() {
     );
     camera.position.x = 0;
     camera.position.z = 0;
-    camera.position.y = 10;
+    camera.position.y = 20;
     camera.lookAt(0, 0, 0);
 
     const canvas = document.getElementById('myThreeJsCanvas')
