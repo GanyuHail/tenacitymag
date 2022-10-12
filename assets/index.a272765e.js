@@ -37518,7 +37518,7 @@ function App() {
     const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 1e3);
     camera.position.x = 0;
     camera.position.y = 10;
-    camera.position.z = 0;
+    camera.position.z = 12;
     camera.lookAt(0, 0, 0);
     const canvas = document.getElementById("myThreeJsCanvas");
     const renderer = new WebGLRenderer({
@@ -37526,6 +37526,7 @@ function App() {
       antialias: true
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
+    np;
     document.body.appendChild(renderer.domElement);
     const ambientLight = new AmbientLight(16761035, 1);
     ambientLight.castShadow = true;
