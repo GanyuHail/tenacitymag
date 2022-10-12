@@ -16295,7 +16295,7 @@ function WebGLBackground(renderer, state, objects, premultipliedAlpha) {
   var boxMesh;
   var currentBackground = null;
   var currentBackgroundVersion = 0;
-  function render2(renderList, scene, camera, forceClear) {
+  function render(renderList, scene, camera, forceClear) {
     var background = scene.background;
     var vr = renderer.vr;
     var session = vr.getSession && vr.getSession();
@@ -16400,7 +16400,7 @@ function WebGLBackground(renderer, state, objects, premultipliedAlpha) {
       clearAlpha = alpha;
       setClear(clearColor, clearAlpha);
     },
-    render: render2
+    render
   };
 }
 function WebGLBufferRenderer(gl2, extensions, info, capabilities) {
@@ -16409,7 +16409,7 @@ function WebGLBufferRenderer(gl2, extensions, info, capabilities) {
   function setMode(value) {
     mode = value;
   }
-  function render2(start, count) {
+  function render(start, count) {
     gl2.drawArrays(mode, start, count);
     info.update(count, mode);
   }
@@ -16432,7 +16432,7 @@ function WebGLBufferRenderer(gl2, extensions, info, capabilities) {
     info.update(count, mode, primcount);
   }
   this.setMode = setMode;
-  this.render = render2;
+  this.render = render;
   this.renderInstances = renderInstances;
 }
 function WebGLCapabilities(gl2, extensions, parameters) {
@@ -16722,7 +16722,7 @@ function WebGLIndexedBufferRenderer(gl2, extensions, info, capabilities) {
     type = value.type;
     bytesPerElement = value.bytesPerElement;
   }
-  function render2(start, count) {
+  function render(start, count) {
     gl2.drawElements(mode, count, type, start * bytesPerElement);
     info.update(count, mode);
   }
@@ -16746,7 +16746,7 @@ function WebGLIndexedBufferRenderer(gl2, extensions, info, capabilities) {
   }
   this.setMode = setMode;
   this.setIndex = setIndex;
-  this.render = render2;
+  this.render = render;
   this.renderInstances = renderInstances;
 }
 function WebGLInfo(gl2) {
@@ -16754,7 +16754,7 @@ function WebGLInfo(gl2) {
     geometries: 0,
     textures: 0
   };
-  var render2 = {
+  var render = {
     frame: 0,
     calls: 0,
     triangles: 0,
@@ -16763,26 +16763,26 @@ function WebGLInfo(gl2) {
   };
   function update(count, mode, instanceCount) {
     instanceCount = instanceCount || 1;
-    render2.calls++;
+    render.calls++;
     switch (mode) {
       case 4:
-        render2.triangles += instanceCount * (count / 3);
+        render.triangles += instanceCount * (count / 3);
         break;
       case 5:
       case 6:
-        render2.triangles += instanceCount * (count - 2);
+        render.triangles += instanceCount * (count - 2);
         break;
       case 1:
-        render2.lines += instanceCount * (count / 2);
+        render.lines += instanceCount * (count / 2);
         break;
       case 3:
-        render2.lines += instanceCount * (count - 1);
+        render.lines += instanceCount * (count - 1);
         break;
       case 2:
-        render2.lines += instanceCount * count;
+        render.lines += instanceCount * count;
         break;
       case 0:
-        render2.points += instanceCount * count;
+        render.points += instanceCount * count;
         break;
       default:
         console.error("THREE.WebGLInfo: Unknown draw mode:", mode);
@@ -16790,15 +16790,15 @@ function WebGLInfo(gl2) {
     }
   }
   function reset() {
-    render2.frame++;
-    render2.calls = 0;
-    render2.triangles = 0;
-    render2.points = 0;
-    render2.lines = 0;
+    render.frame++;
+    render.calls = 0;
+    render.triangles = 0;
+    render.points = 0;
+    render.lines = 0;
   }
   return {
     memory,
-    render: render2,
+    render,
     programs: null,
     autoReset: true,
     reset,
@@ -37564,7 +37564,7 @@ function App() {
       }
     }
     window.addEventListener("pointermove", onPointerMove);
-    window.requestAnimationFrame(render);
+    window.requestAnimationFrame(onPointerMove);
     const animate = () => {
       controls.update();
       renderer.render(scene, camera);
