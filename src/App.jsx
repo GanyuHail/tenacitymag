@@ -11,11 +11,11 @@ function App() {
       50,
       window.innerWidth / window.innerHeight,
       1,
-      1000
+      500
     );
     camera.position.x = 0;
-    camera.position.z = 10;
-    camera.position.y = 0;
+    camera.position.z = 0;
+    camera.position.y = 10;
     camera.lookAt(0, 0, 0);
 
     const canvas = document.getElementById('myThreeJsCanvas')
@@ -32,7 +32,7 @@ function App() {
     ambientLight.physicallyCorrectLights = true;
     scene.add(ambientLight);
 
-    const spotLight = new THREE.SpotLight(0xffffff, 1);
+    const spotLight = new THREE.SpotLight(0xffffff, 2);
     spotLight.castShadow = true;
     spotLight.position.set(12, 64, 32);
     spotLight.physicallyCorrectLights = true;
@@ -74,8 +74,6 @@ function App() {
     window.requestAnimationFrame(render);
 
     const animate = () => {
-      //gltf.scene.rotation.x += 0.001;
-      //gltf.scene.rotation.y += 0.001;
       controls.update();
       renderer.render(scene, camera);
       window.requestAnimationFrame(animate);
