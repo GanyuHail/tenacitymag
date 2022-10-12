@@ -37533,12 +37533,27 @@ function App() {
     spotLight.position.set(12, 64, 32);
     spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
-    console.log(threeGltfLoader);
     const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/bl3/main/src/");
     loader.load("baesLogoMaster2.gltf", function(gltf) {
       scene.add(gltf.scene);
     });
     const controls = new OrbitControls(camera, renderer.domElement);
+    const raycaster = new Raycaster();
+    const pointer = new Vector2();
+    function onPointerMove(event) {
+      pointer.x = event.clientX / window.innerWidth * 2 - 1;
+      pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    }
+    function render() {
+      raycaster.setFromCamera(pointer, camera);
+      const intersects2 = raycaster.intersectObjects(scene.children);
+      for (let i = 0; i < intersects2.length; i++) {
+        intersects2[i].object.material.color.set(16711680);
+      }
+      renderer.render(scene, camera);
+    }
+    window.addEventListener("pointermove", onPointerMove);
+    window.requestAnimationFrame(render);
     const animate = () => {
       controls.update();
       renderer.render(scene, camera);
