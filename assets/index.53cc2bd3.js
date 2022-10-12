@@ -37537,7 +37537,6 @@ function App() {
     const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/bl3/main/src/");
     loader.load("baesLogo1.gltf", function(gltf) {
       scene.add(gltf.scene);
-      renderer.render();
     });
     const controls = new OrbitControls(camera, renderer.domElement);
     const animate = () => {
