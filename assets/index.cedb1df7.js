@@ -37514,27 +37514,6 @@ reactJsxRuntime_production_min.jsxs = q;
 const jsx = jsxRuntime.exports.jsx;
 function App() {
   react.exports.useEffect(() => {
-    var progress = document.createElement("div");
-    var progressBar = document.createElement("div");
-    progress.appendChild(progressBar);
-    document.body.appendChild(progress);
-    var manager = new LoadingManager();
-    manager.onProgress = function(item, loaded, total) {
-      progressBar.style.width = loaded / total * 100 + "%";
-    };
-    function addRandomPlaceHoldItImage() {
-      var r2 = Math.round(Math.random() * 4e3);
-      new ImageLoader(manager).load("https://freight.cargo.site/t/original/i/bbe49bb129e6a1d3cef7c48208958ccbf3c2cf9c869ebf9ec8a5acb6dbd1f6ce/Baseianz-planet-red-green-white-10.ico" + r2 + "/" + r2);
-    }
-    for (var i = 0; i < 10; i++)
-      addRandomPlaceHoldItImage();
-    const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/bl3/main/src/");
-    loader.load("baesLogoMaster4.gltf", function(gltf) {
-      scene.add(gltf.scene);
-      scene.rotation.x += 0.01;
-      scene.rotation.y += 0.01;
-      console.log(scene.rotation);
-    });
     const scene = new Scene();
     const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 500);
     camera.position.x = 0;
@@ -37557,6 +37536,11 @@ function App() {
     spotLight.position.set(12, 64, 32);
     spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
+    const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/bl3/main/src/");
+    loader.load("baesLogoMaster4.gltf", function(gltf) {
+      scene.add(gltf.scene);
+      console.log(scene.rotation);
+    });
     const controls = new OrbitControls(camera, renderer.domElement);
     const raycaster = new Raycaster();
     const pointer = new Vector2();
