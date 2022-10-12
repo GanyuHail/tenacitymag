@@ -37516,8 +37516,9 @@ function App() {
   react.exports.useEffect(() => {
     const scene = new Scene();
     const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 1e3);
-    camera.position.z = 96;
-    camera.position.y = 8;
+    camera.position.x = 10;
+    camera.position.y = 10;
+    camera.position.z = 10;
     camera.lookAt(0, 0, 0);
     const canvas = document.getElementById("myThreeJsCanvas");
     const renderer = new WebGLRenderer({
