@@ -46,7 +46,7 @@ function App() {
 
       scene.add(gltf.scene);
 
-      renderer.render();
+      //renderer.render();
 
     });
 
