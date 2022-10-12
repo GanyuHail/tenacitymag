@@ -6,8 +6,6 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 function App() {
   useEffect(() => {
     const scene = new THREE.Scene();
-    scene.background = 0xffffff;
-    scene.fog = 1;
 
     const camera = new THREE.PerspectiveCamera(
       50,
@@ -22,6 +20,7 @@ function App() {
       canvas,
       antialias: true,
     });
+
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
@@ -32,29 +31,43 @@ function App() {
 
     const spotLight = new THREE.SpotLight(0xffffff, 1);
     spotLight.castShadow = true;
-    spotLight.position.set(64, 64, 32);
+    spotLight.position.set(12, 64, 32);
     spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
 
-    //const sphereGeometry = new THREE.SphereGeometry(12, 64, 32);
-    //const sphereTexture = new THREE.TextureLoader().load('https://raw.githubusercontent.com/GanyuHail/3dArt/main/uniPinch1.jpg');
-    //const sphereMaterial = new THREE.MeshBasicMaterial({ map: sphereTexture });
-    //const sphereMesh = new THREE.Mesh(sphereGeometry, sphereMaterial);
-    //scene.add(sphereMesh);
-
-    console.log(GLTFLoader);
     const loader = new GLTFLoader().setPath('https://raw.githubusercontent.com/GanyuHail/bl3/main/src/');
     loader.load('baesLogoMaster2.gltf', function (gltf) {
-
       scene.add(gltf.scene);
-
-      //renderer.render();
-
     });
 
-    //sphereGeometry.userData = { URL: "https://github.com/GanyuHail/3dArt/blob/main/Hi%20Res%20-.jpg" };
-
     const controls = new OrbitControls(camera, renderer.domElement);
+
+    const raycaster = new THREE.Raycaster();
+    const pointer = new THREE.Vector2();
+
+    function onPointerMove(event) {
+
+      // calculate pointer position in normalized device coordinates
+      // (-1 to +1) for both components
+
+      pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+      pointer.y = - (event.clientY / window.innerHeight) * 2 + 1;
+
+    }
+
+    function render() {
+
+      raycaster.setFromCamera(pointer, camera);
+      const intersects = raycaster.intersectObjects(scene.children);
+
+      for (let i = 0; i < intersects.length; i++) {
+        intersects[i].object.material.color.set(0xff0000);
+      }
+      renderer.render(scene, camera);
+    }
+
+    window.addEventListener('pointermove', onPointerMove);
+    window.requestAnimationFrame(render);
 
     const animate = () => {
       //gltf.scene.rotation.x += 0.001;

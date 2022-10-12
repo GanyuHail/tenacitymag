@@ -37515,8 +37515,6 @@ const jsx = jsxRuntime.exports.jsx;
 function App() {
   react.exports.useEffect(() => {
     const scene = new Scene();
-    scene.background = 16777215;
-    scene.fog = 1;
     const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 1e3);
     camera.position.z = 96;
     const canvas = document.getElementById("myThreeJsCanvas");
@@ -37532,15 +37530,30 @@ function App() {
     scene.add(ambientLight);
     const spotLight = new SpotLight(16777215, 1);
     spotLight.castShadow = true;
-    spotLight.position.set(64, 64, 32);
+    spotLight.position.set(12, 64, 32);
     spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
-    console.log(threeGltfLoader);
     const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/bl3/main/src/");
     loader.load("baesLogoMaster2.gltf", function(gltf) {
       scene.add(gltf.scene);
     });
     const controls = new OrbitControls(camera, renderer.domElement);
+    const raycaster = new Raycaster();
+    const pointer = new Vector2();
+    function onPointerMove(event) {
+      pointer.x = event.clientX / window.innerWidth * 2 - 1;
+      pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    }
+    function render() {
+      raycaster.setFromCamera(pointer, camera);
+      const intersects2 = raycaster.intersectObjects(scene.children);
+      for (let i = 0; i < intersects2.length; i++) {
+        intersects2[i].object.material.color.set(16711680);
+      }
+      renderer.render(scene, camera);
+    }
+    window.addEventListener("pointermove", onPointerMove);
+    window.requestAnimationFrame(render);
     const animate = () => {
       controls.update();
       renderer.render(scene, camera);
