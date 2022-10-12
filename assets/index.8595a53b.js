@@ -37553,8 +37553,9 @@ function App() {
     const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/bl3/main/src/");
     loader.load("baesLogoMaster4.gltf", function(gltf) {
       scene.add(gltf.scene);
+      scene.rotation.x += 0.01;
       scene.rotation.y += 0.01;
-      scene.rotation.y += 0.01;
+      console.log(scene.rotation);
     });
     const controls = new OrbitControls(camera, renderer.domElement);
     const raycaster = new Raycaster();
