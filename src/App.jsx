@@ -14,6 +14,8 @@ function App() {
       1000
     );
     camera.position.z = 96;
+    camera.position.y = 8;
+    camera.lookAt(0, 0, 0);
 
     const canvas = document.getElementById('myThreeJsCanvas')
     const renderer = new THREE.WebGLRenderer({
@@ -55,13 +57,14 @@ function App() {
 
     }
 
+    console.log(render);
     function render() {
 
       raycaster.setFromCamera(pointer, camera);
       const intersects = raycaster.intersectObjects(scene.children);
 
       for (let i = 0; i < intersects.length; i++) {
-        intersects[i].object.material.color.set(0xff0000);
+        intersects[i].window.open('/google.com');
       }
       renderer.render(scene, camera);
     }
