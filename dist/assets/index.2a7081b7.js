@@ -37530,7 +37530,7 @@ function App() {
     scene.add(ambientLight);
     const spotLight = new SpotLight(16777215, 1);
     spotLight.castShadow = true;
-    spotLight.position.set(0, 64, 32);
+    spotLight.position.set(64, 64, 32);
     spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
     console.log(threeGltfLoader);
