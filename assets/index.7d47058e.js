@@ -37517,6 +37517,8 @@ function App() {
     const scene = new Scene();
     const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 1e3);
     camera.position.z = 96;
+    camera.position.y = 8;
+    camera.lookAt(0, 0, 0);
     const canvas = document.getElementById("myThreeJsCanvas");
     const renderer = new WebGLRenderer({
       canvas,
@@ -37544,6 +37546,7 @@ function App() {
       pointer.x = event.clientX / window.innerWidth * 2 - 1;
       pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
     }
+    console.log(render);
     function render() {
       raycaster.setFromCamera(pointer, camera);
       const intersects2 = raycaster.intersectObjects(scene.children);
