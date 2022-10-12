@@ -23,7 +23,7 @@ function App() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    const ambientLight = new THREE.AmbientLight(0xFFC0CB, 0.5);
+    const ambientLight = new THREE.AmbientLight(0xFFC0CB, 1);
     ambientLight.castShadow = true;
     ambientLight.physicallyCorrectLights = true;
     scene.add(ambientLight);

@@ -37524,7 +37524,7 @@ function App() {
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
-    const ambientLight = new AmbientLight(16761035, 0.5);
+    const ambientLight = new AmbientLight(16761035, 1);
     ambientLight.castShadow = true;
     ambientLight.physicallyCorrectLights = true;
     scene.add(ambientLight);
