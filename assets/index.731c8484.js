@@ -37539,16 +37539,18 @@ function App() {
     const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/bl3/main/src/");
     loader.load("baesLogoMaster4.gltf", function(gltf2) {
       scene.add(gltf2.scene);
+      console.log();
     });
+    var baes = gltf.scene;
     document.addEventListener("mousedown", onMouseDown);
     function onMouseDown(event) {
       event.preventDefault();
       const mouse3D = new Vector3(event.clientX / window.innerWidth * 2 - 1, -(event.clientY / window.innerheight) * 2 - 1, 0.5);
       const raycaster = new Raycaster();
       raycaster.setFromCamera(mouse3D, camera);
-      const intersects2 = raycaster.intersectObjects(gltf.scene);
+      const intersects2 = raycaster.intersectObjects(baes);
       if (intersects2.length > 0) {
-        console.log();
+        console.log("click!");
       }
     }
     const controls = new OrbitControls(camera, renderer.domElement);
