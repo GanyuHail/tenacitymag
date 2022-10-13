@@ -35208,8 +35208,8 @@ var _GLTFLoader = function() {
       }
       loader.load(url, function(data) {
         try {
-          scope.parse(data, resourcePath, function(gltf2) {
-            onLoad(gltf2);
+          scope.parse(data, resourcePath, function(gltf) {
+            onLoad(gltf);
             scope.manager.itemEnd(url);
           }, _onError);
         } catch (e) {
@@ -37537,11 +37537,11 @@ function App() {
     spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
     const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/bl3/main/src/");
-    loader.load("baesLogoMaster4.gltf", function(gltf2) {
-      scene.add(gltf2.scene);
+    loader.load("baesLogoMaster4.gltf", function(gltf) {
+      scene.add(gltf.scene);
+      gltf.scene;
       console.log();
     });
-    var baes = gltf.scene;
     document.addEventListener("mousedown", onMouseDown);
     function onMouseDown(event) {
       event.preventDefault();
