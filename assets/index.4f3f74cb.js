@@ -37548,6 +37548,7 @@ function App() {
       const raycaster = new Raycaster();
       raycaster.setFromCamera(mouse3D, camera);
       const gltf = gltf.scene;
+      console.log(gltf);
       const intersects2 = raycaster.intersectObjects(gltf, true);
       if (intersects2.length > 0) {
         console.log("click!");
