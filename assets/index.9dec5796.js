@@ -16288,7 +16288,7 @@ function PlaneBufferGeometry(width, height, widthSegments, heightSegments) {
 }
 PlaneBufferGeometry.prototype = Object.create(BufferGeometry.prototype);
 PlaneBufferGeometry.prototype.constructor = PlaneBufferGeometry;
-function WebGLBackground(renderer, state, objects, premultipliedAlpha) {
+function WebGLBackground(renderer, state, objects2, premultipliedAlpha) {
   var clearColor = new Color(0);
   var clearAlpha = 0;
   var planeMesh;
@@ -16337,7 +16337,7 @@ function WebGLBackground(renderer, state, objects, premultipliedAlpha) {
             return this.uniforms.tCube.value;
           }
         });
-        objects.update(boxMesh);
+        objects2.update(boxMesh);
       }
       var texture = background.isWebGLRenderTargetCube ? background.texture : background;
       boxMesh.material.uniforms.tCube.value = texture;
@@ -16366,7 +16366,7 @@ function WebGLBackground(renderer, state, objects, premultipliedAlpha) {
             return this.uniforms.t2D.value;
           }
         });
-        objects.update(planeMesh);
+        objects2.update(planeMesh);
       }
       planeMesh.material.uniforms.t2D.value = background;
       if (background.matrixAutoUpdate === true) {
@@ -20974,7 +20974,7 @@ function WebGLRenderer(parameters) {
     throw error;
   }
   var extensions, capabilities, state, info;
-  var properties, textures, attributes, geometries, objects;
+  var properties, textures, attributes, geometries, objects2;
   var programCache, renderLists, renderStates;
   var background, morphtargets, bufferRenderer, indexedBufferRenderer;
   var utils;
@@ -21000,12 +21000,12 @@ function WebGLRenderer(parameters) {
     textures = new WebGLTextures(_gl, extensions, state, properties, capabilities, utils, info);
     attributes = new WebGLAttributes(_gl);
     geometries = new WebGLGeometries(_gl, attributes, info);
-    objects = new WebGLObjects(_gl, geometries, attributes, info);
+    objects2 = new WebGLObjects(_gl, geometries, attributes, info);
     morphtargets = new WebGLMorphtargets(_gl);
     programCache = new WebGLPrograms(_this, extensions, capabilities);
     renderLists = new WebGLRenderLists();
     renderStates = new WebGLRenderStates();
-    background = new WebGLBackground(_this, state, objects, _premultipliedAlpha);
+    background = new WebGLBackground(_this, state, objects2, _premultipliedAlpha);
     bufferRenderer = new WebGLBufferRenderer(_gl, extensions, info, capabilities);
     indexedBufferRenderer = new WebGLIndexedBufferRenderer(_gl, extensions, info, capabilities);
     info.programs = programCache.programs;
@@ -21020,7 +21020,7 @@ function WebGLRenderer(parameters) {
   var vr = typeof navigator !== "undefined" && "xr" in navigator ? new WebXRManager(_this, _gl) : new WebVRManager(_this);
   this.vr = vr;
   var multiview = new WebGLMultiview(_this, _gl);
-  var shadowMap = new WebGLShadowMap(_this, objects, capabilities.maxTextureSize);
+  var shadowMap = new WebGLShadowMap(_this, objects2, capabilities.maxTextureSize);
   this.shadowMap = shadowMap;
   this.getContext = function() {
     return _gl;
@@ -21156,7 +21156,7 @@ function WebGLRenderer(parameters) {
     renderLists.dispose();
     renderStates.dispose();
     properties.dispose();
-    objects.dispose();
+    objects2.dispose();
     vr.dispose();
     animation.stop();
   };
@@ -21561,7 +21561,7 @@ function WebGLRenderer(parameters) {
           if (sortObjects) {
             _vector3.setFromMatrixPosition(object.matrixWorld).applyMatrix4(_projScreenMatrix);
           }
-          var geometry = objects.update(object);
+          var geometry = objects2.update(object);
           var material = object.material;
           if (material.visible) {
             currentRenderList.push(object, geometry, material, groupOrder, _vector3.z, null);
@@ -21583,7 +21583,7 @@ function WebGLRenderer(parameters) {
           if (sortObjects) {
             _vector3.setFromMatrixPosition(object.matrixWorld).applyMatrix4(_projScreenMatrix);
           }
-          var geometry = objects.update(object);
+          var geometry = objects2.update(object);
           var material = object.material;
           if (Array.isArray(material)) {
             var groups = geometry.groups;
@@ -31409,23 +31409,23 @@ function AnimationObjectGroup() {
 Object.assign(AnimationObjectGroup.prototype, {
   isAnimationObjectGroup: true,
   add: function() {
-    var objects = this._objects, nObjects = objects.length, nCachedObjects = this.nCachedObjects_, indicesByUUID = this._indicesByUUID, paths = this._paths, parsedPaths = this._parsedPaths, bindings = this._bindings, nBindings = bindings.length, knownObject = void 0;
+    var objects2 = this._objects, nObjects = objects2.length, nCachedObjects = this.nCachedObjects_, indicesByUUID = this._indicesByUUID, paths = this._paths, parsedPaths = this._parsedPaths, bindings = this._bindings, nBindings = bindings.length, knownObject = void 0;
     for (var i = 0, n2 = arguments.length; i !== n2; ++i) {
       var object = arguments[i], uuid = object.uuid, index2 = indicesByUUID[uuid];
       if (index2 === void 0) {
         index2 = nObjects++;
         indicesByUUID[uuid] = index2;
-        objects.push(object);
+        objects2.push(object);
         for (var j = 0, m2 = nBindings; j !== m2; ++j) {
           bindings[j].push(new PropertyBinding(object, paths[j], parsedPaths[j]));
         }
       } else if (index2 < nCachedObjects) {
-        knownObject = objects[index2];
-        var firstActiveIndex = --nCachedObjects, lastCachedObject = objects[firstActiveIndex];
+        knownObject = objects2[index2];
+        var firstActiveIndex = --nCachedObjects, lastCachedObject = objects2[firstActiveIndex];
         indicesByUUID[lastCachedObject.uuid] = index2;
-        objects[index2] = lastCachedObject;
+        objects2[index2] = lastCachedObject;
         indicesByUUID[uuid] = firstActiveIndex;
-        objects[firstActiveIndex] = object;
+        objects2[firstActiveIndex] = object;
         for (var j = 0, m2 = nBindings; j !== m2; ++j) {
           var bindingsForPath = bindings[j], lastCached = bindingsForPath[firstActiveIndex], binding = bindingsForPath[index2];
           bindingsForPath[index2] = lastCached;
@@ -31434,22 +31434,22 @@ Object.assign(AnimationObjectGroup.prototype, {
           }
           bindingsForPath[firstActiveIndex] = binding;
         }
-      } else if (objects[index2] !== knownObject) {
+      } else if (objects2[index2] !== knownObject) {
         console.error("THREE.AnimationObjectGroup: Different objects with the same UUID detected. Clean the caches or recreate your infrastructure when reloading scenes.");
       }
     }
     this.nCachedObjects_ = nCachedObjects;
   },
   remove: function() {
-    var objects = this._objects, nCachedObjects = this.nCachedObjects_, indicesByUUID = this._indicesByUUID, bindings = this._bindings, nBindings = bindings.length;
+    var objects2 = this._objects, nCachedObjects = this.nCachedObjects_, indicesByUUID = this._indicesByUUID, bindings = this._bindings, nBindings = bindings.length;
     for (var i = 0, n2 = arguments.length; i !== n2; ++i) {
       var object = arguments[i], uuid = object.uuid, index2 = indicesByUUID[uuid];
       if (index2 !== void 0 && index2 >= nCachedObjects) {
-        var lastCachedIndex = nCachedObjects++, firstActiveObject = objects[lastCachedIndex];
+        var lastCachedIndex = nCachedObjects++, firstActiveObject = objects2[lastCachedIndex];
         indicesByUUID[firstActiveObject.uuid] = index2;
-        objects[index2] = firstActiveObject;
+        objects2[index2] = firstActiveObject;
         indicesByUUID[uuid] = lastCachedIndex;
-        objects[lastCachedIndex] = object;
+        objects2[lastCachedIndex] = object;
         for (var j = 0, m2 = nBindings; j !== m2; ++j) {
           var bindingsForPath = bindings[j], firstActive = bindingsForPath[lastCachedIndex], binding = bindingsForPath[index2];
           bindingsForPath[index2] = firstActive;
@@ -31460,18 +31460,18 @@ Object.assign(AnimationObjectGroup.prototype, {
     this.nCachedObjects_ = nCachedObjects;
   },
   uncache: function() {
-    var objects = this._objects, nObjects = objects.length, nCachedObjects = this.nCachedObjects_, indicesByUUID = this._indicesByUUID, bindings = this._bindings, nBindings = bindings.length;
+    var objects2 = this._objects, nObjects = objects2.length, nCachedObjects = this.nCachedObjects_, indicesByUUID = this._indicesByUUID, bindings = this._bindings, nBindings = bindings.length;
     for (var i = 0, n2 = arguments.length; i !== n2; ++i) {
       var object = arguments[i], uuid = object.uuid, index2 = indicesByUUID[uuid];
       if (index2 !== void 0) {
         delete indicesByUUID[uuid];
         if (index2 < nCachedObjects) {
-          var firstActiveIndex = --nCachedObjects, lastCachedObject = objects[firstActiveIndex], lastIndex = --nObjects, lastObject = objects[lastIndex];
+          var firstActiveIndex = --nCachedObjects, lastCachedObject = objects2[firstActiveIndex], lastIndex = --nObjects, lastObject = objects2[lastIndex];
           indicesByUUID[lastCachedObject.uuid] = index2;
-          objects[index2] = lastCachedObject;
+          objects2[index2] = lastCachedObject;
           indicesByUUID[lastObject.uuid] = firstActiveIndex;
-          objects[firstActiveIndex] = lastObject;
-          objects.pop();
+          objects2[firstActiveIndex] = lastObject;
+          objects2.pop();
           for (var j = 0, m2 = nBindings; j !== m2; ++j) {
             var bindingsForPath = bindings[j], lastCached = bindingsForPath[firstActiveIndex], last = bindingsForPath[lastIndex];
             bindingsForPath[index2] = lastCached;
@@ -31479,10 +31479,10 @@ Object.assign(AnimationObjectGroup.prototype, {
             bindingsForPath.pop();
           }
         } else {
-          var lastIndex = --nObjects, lastObject = objects[lastIndex];
+          var lastIndex = --nObjects, lastObject = objects2[lastIndex];
           indicesByUUID[lastObject.uuid] = index2;
-          objects[index2] = lastObject;
-          objects.pop();
+          objects2[index2] = lastObject;
+          objects2.pop();
           for (var j = 0, m2 = nBindings; j !== m2; ++j) {
             var bindingsForPath = bindings[j];
             bindingsForPath[index2] = bindingsForPath[lastIndex];
@@ -31497,14 +31497,14 @@ Object.assign(AnimationObjectGroup.prototype, {
     var indicesByPath = this._bindingsIndicesByPath, index2 = indicesByPath[path], bindings = this._bindings;
     if (index2 !== void 0)
       return bindings[index2];
-    var paths = this._paths, parsedPaths = this._parsedPaths, objects = this._objects, nObjects = objects.length, nCachedObjects = this.nCachedObjects_, bindingsForPath = new Array(nObjects);
+    var paths = this._paths, parsedPaths = this._parsedPaths, objects2 = this._objects, nObjects = objects2.length, nCachedObjects = this.nCachedObjects_, bindingsForPath = new Array(nObjects);
     index2 = bindings.length;
     indicesByPath[path] = index2;
     paths.push(path);
     parsedPaths.push(parsedPath);
     bindings.push(bindingsForPath);
-    for (var i = nCachedObjects, n2 = objects.length; i !== n2; ++i) {
-      var object = objects[i];
+    for (var i = nCachedObjects, n2 = objects2.length; i !== n2; ++i) {
+      var object = objects2[i];
       bindingsForPath[i] = new PropertyBinding(object, path, parsedPath);
     }
     return bindingsForPath;
@@ -32265,14 +32265,14 @@ Object.assign(Raycaster.prototype, {
     intersects2.sort(ascSort);
     return intersects2;
   },
-  intersectObjects: function(objects, recursive, optionalTarget) {
+  intersectObjects: function(objects2, recursive, optionalTarget) {
     var intersects2 = optionalTarget || [];
-    if (Array.isArray(objects) === false) {
+    if (Array.isArray(objects2) === false) {
       console.warn("THREE.Raycaster.intersectObjects: objects is not an Array.");
       return intersects2;
     }
-    for (var i = 0, l2 = objects.length; i < l2; i++) {
-      intersectObject(objects[i], this, intersects2, recursive);
+    for (var i = 0, l2 = objects2.length; i < l2; i++) {
+      intersectObject(objects2[i], this, intersects2, recursive);
     }
     intersects2.sort(ascSort);
     return intersects2;
@@ -35293,19 +35293,19 @@ var _GLTFLoader = function() {
     }
   });
   function GLTFRegistry() {
-    var objects = {};
+    var objects2 = {};
     return {
       get: function(key) {
-        return objects[key];
+        return objects2[key];
       },
       add: function(key, object) {
-        objects[key] = object;
+        objects2[key] = object;
       },
       remove: function(key) {
-        delete objects[key];
+        delete objects2[key];
       },
       removeAll: function() {
-        objects = {};
+        objects2 = {};
       }
     };
   }
@@ -36749,20 +36749,20 @@ var _GLTFLoader = function() {
         pending.push(parser.getDependency("light", nodeDef.extensions[EXTENSIONS.KHR_LIGHTS_PUNCTUAL].light));
       }
       return Promise.all(pending);
-    }().then(function(objects) {
+    }().then(function(objects2) {
       var node;
       if (nodeDef.isBone === true) {
         node = new THREE$1.Bone();
-      } else if (objects.length > 1) {
+      } else if (objects2.length > 1) {
         node = new THREE$1.Group();
-      } else if (objects.length === 1) {
-        node = objects[0];
+      } else if (objects2.length === 1) {
+        node = objects2[0];
       } else {
         node = new THREE$1.Object3D();
       }
-      if (node !== objects[0]) {
-        for (var i = 0, il2 = objects.length; i < il2; i++) {
-          node.add(objects[i]);
+      if (node !== objects2[0]) {
+        for (var i = 0, il2 = objects2.length; i < il2; i++) {
+          node.add(objects2[i]);
         }
       }
       if (nodeDef.name !== void 0) {
@@ -37541,6 +37541,17 @@ function App() {
       scene.add(gltf.scene);
       console.log(scene.rotation);
     });
+    document.addEventListener("mousedown", onMouseDown);
+    function onMouseDown(event) {
+      event.preventDefault();
+      const mouse3D = new Vector3(event.clientX / window.innerWidth * 2 - 1, -(event.clientY / window.innerheight) * 2 - 1, 0.5);
+      const raycaster = new Raycaster();
+      raycaster.setFromCamera(mouse3D, camera);
+      const intersects2 = raycaster.intersectObjects(objects);
+      if (intersects2.length > 0) {
+        console.log();
+      }
+    }
     const controls = new OrbitControls(camera, renderer.domElement);
     const animate = () => {
       controls.update();
