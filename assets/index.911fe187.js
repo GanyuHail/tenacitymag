@@ -37539,7 +37539,6 @@ function App() {
     const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/bl3/main/src/");
     loader.load("baesLogoMaster4.gltf", function(gltf2) {
       scene.add(gltf2.scene);
-      gltf2.scene.minFilter = LinearFilter;
     });
     document.addEventListener("mousedown", onMouseDown);
     function onMouseDown(event) {
