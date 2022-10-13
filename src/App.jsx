@@ -16,6 +16,7 @@ function App() {
     camera.position.x = 0;
     camera.position.z = 0;
     camera.position.y = 20;
+    camera.rotation.x = 10;
     camera.lookAt(0, 0, 0);
 
     const canvas = document.getElementById('myThreeJsCanvas')
@@ -51,12 +52,12 @@ function App() {
       const mouse3D = new THREE.Vector3((event.clientX / window.innerWidth) * 2 - 1, -(event.clientY / window.innerheight) * 2 - 1, 0.5)
       const raycaster = new THREE.Raycaster()
       raycaster.setFromCamera(mouse3D, camera)
-      const intersects = raycaster.intersectObjects(gltf, true);
+      const intersects = raycaster.intersectObjects(objects, true);
       if (intersects.length > 0) {
         console.log("click!");
         //intersects[0].object.material.color.setHex(Math.random() * 0xffffff)
       }
-    }
+    };
 
     const controls = new OrbitControls(camera, renderer.domElement);
 
