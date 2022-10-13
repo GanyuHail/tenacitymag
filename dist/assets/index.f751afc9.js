@@ -35208,8 +35208,8 @@ var _GLTFLoader = function() {
       }
       loader.load(url, function(data) {
         try {
-          scope.parse(data, resourcePath, function(gltf) {
-            onLoad(gltf);
+          scope.parse(data, resourcePath, function(gltf2) {
+            onLoad(gltf2);
             scope.manager.itemEnd(url);
           }, _onError);
         } catch (e) {
@@ -37537,10 +37537,20 @@ function App() {
     spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
     const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/bl3/main/src/");
-    loader.load("baesLogoMaster4.gltf", function(gltf) {
-      scene.add(gltf.scene);
-      console.log(scene.rotation);
+    loader.load("baesLogoMaster4.gltf", function(gltf2) {
+      scene.add(gltf2.scene);
     });
+    document.addEventListener("mousedown", onMouseDown);
+    function onMouseDown(event) {
+      event.preventDefault();
+      const mouse3D = new Vector3(event.clientX / window.innerWidth * 2 - 1, -(event.clientY / window.innerheight) * 2 - 1, 0.5);
+      const raycaster = new Raycaster();
+      raycaster.setFromCamera(mouse3D, camera);
+      const intersects2 = raycaster.intersectObjects(gltf, true);
+      if (intersects2.length > 0) {
+        console.log("click!");
+      }
+    }
     const controls = new OrbitControls(camera, renderer.domElement);
     const animate = () => {
       controls.update();
