@@ -37535,11 +37535,6 @@ function App() {
     spotLight.position.set(12, 64, 32);
     spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
-    const spotLight2 = new SpotLight(16777215, 2);
-    spotLight.castShadow = false;
-    spotLight.position.set(12, -64, -32);
-    spotLight.physicallyCorrectLights = true;
-    scene.add(spotLight2);
     const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/bl3/main/src/");
     loader.load("baesLogoMaster4.gltf", function(gltf) {
       scene.add(gltf.scene);
