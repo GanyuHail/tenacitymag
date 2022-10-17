@@ -16,7 +16,6 @@ function App() {
     camera.position.x = 0;
     camera.position.z = 0;
     camera.position.y = 20;
-    camera.rotation.x = 10;
     camera.lookAt(0, 0, 0);
 
     const canvas = document.getElementById('myThreeJsCanvas')
@@ -28,7 +27,7 @@ function App() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    const ambientLight = new THREE.AmbientLight(0xFFC0CB, 1);
+    const ambientLight = new THREE.AmbientLight(0xFFC0CB, 2);
     ambientLight.castShadow = true;
     ambientLight.physicallyCorrectLights = true;
     scene.add(ambientLight);
@@ -39,8 +38,15 @@ function App() {
     spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
 
+    const spotLight2 = new THREE.SpotLight(0xffffff, 2);
+    spotLight.castShadow = false;
+    spotLight.position.set(12, -64, -32);
+    spotLight.physicallyCorrectLights = true;
+    scene.add(spotLight2);
+
     const loader = new GLTFLoader().setPath('https://raw.githubusercontent.com/GanyuHail/bl3/main/src/');
     loader.load('baesLogoMaster4.gltf', function (gltf) {
+      antialias = true; 
       scene.add(gltf.scene);
     });
 
