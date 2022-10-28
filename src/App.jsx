@@ -3,6 +3,8 @@ import * as THREE from 'three';
 import GLTFLoader from 'three-gltf-loader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
+let selectedObject = null; 
+
 function App() {
   useEffect(() => {
     const scene = new THREE.Scene();
@@ -21,8 +23,9 @@ function App() {
     const canvas = document.getElementById('myThreeJsCanvas')
     const renderer = new THREE.WebGLRenderer({
       canvas,
-      //antialias: true,
     });
+    renderer.setPixelRatio( window.devicePixelRatio );
+    renderer.setSize( innerWidth, innerHeight );
 
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
@@ -40,24 +43,58 @@ function App() {
 
     const loader = new GLTFLoader().setPath('https://raw.githubusercontent.com/GanyuHail/bl3/main/src/');
     loader.load('baesLogoMaster4.gltf', function (gltf) {
-      //antialias = true; 
       scene.add(gltf.scene);
     });
 
-    //document.addEventListener('mousedown', onMouseDown);
+    window.addEventListener('resize', onWindowResize, false);
 
-    //function onMouseDown(event) {
-      //event.preventDefault();
-      
-      //const mouse3D = new THREE.Vector3((event.clientX / window.innerWidth) * 2 - 1, -(event.clientY / window.innerheight) * 2 - 1, 0.5)
-      //const raycaster = new THREE.Raycaster()
-      //raycaster.setFromCamera(mouse3D, camera)
-      //const intersects = raycaster.intersectObjects(objects, true);
-      //if (intersects.length > 0) {
-        //console.log("click!");
-        //intersects[0].object.material.color.setHex(Math.random() * 0xffffff)
-      //}
-    //};
+    const raycaster = new THREE.Raycaster();
+    const pointer = new THREE.Vector2();
+
+    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('click', onMouseDown);
+    window.addEventListener('touchend', touchEnd);
+    console.log(onMouseDown);
+
+    function onPointerMove(event) {
+      if (selectedObject) {
+        //selectedObject.material.color.set('white');
+        selectedObject = null;
+      }
+
+      pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+      pointer.y = - (event.clientY / window.innerHeight) * 2 + 1;
+
+      raycaster.setFromCamera(pointer, camera);
+      const intersects = raycaster.intersectObjects(scene.children, true);
+
+      for (let i = 0; i < intersects.length; i++) {
+        const intersect = intersects[i];
+
+        if (intersect && intersect.object) {
+          selectedObject = intersect.object;
+          intersect.object.material.color.set('pink');
+        }
+      }
+    };
+
+    function onMouseDown(event) {
+      if (selectedObject) {
+        window.location.href = "https://baesianz.com/";
+      }
+    };
+
+    function touchEnd(event) {
+      if (selectedObject) {
+        window.location.href = "https://baesianz.com/";
+      }
+    };
+
+    function render() {
+      renderer.render(scene, camera);
+    };
+
+    window.requestAnimationFrame(render);
 
     const controls = new OrbitControls(camera, renderer.domElement);
 
@@ -67,6 +104,18 @@ function App() {
       window.requestAnimationFrame(animate);
     };
     animate();
+
+    renderer.setAnimationLoop( function () {
+      renderer.render( scene, camera );
+    } );
+
+    function onWindowResize() {
+      windowHalfX = window.innerWidth / 2;
+      windowHalfY = window.innerHeight / 2;
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    }
   }, []);
 
   return (

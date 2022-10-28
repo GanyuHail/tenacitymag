@@ -37512,6 +37512,7 @@ reactJsxRuntime_production_min.jsxs = q;
   }
 })(jsxRuntime);
 const jsx = jsxRuntime.exports.jsx;
+let selectedObject = null;
 function App() {
   react.exports.useEffect(() => {
     const scene = new Scene();
@@ -37524,6 +37525,8 @@ function App() {
     const renderer = new WebGLRenderer({
       canvas
     });
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(innerWidth, innerHeight);
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
     const ambientLight = new AmbientLight(16761035, 2);
@@ -37539,6 +37542,43 @@ function App() {
     loader.load("baesLogoMaster4.gltf", function(gltf) {
       scene.add(gltf.scene);
     });
+    window.addEventListener("resize", onWindowResize, false);
+    const raycaster = new Raycaster();
+    const pointer = new Vector2();
+    window.addEventListener("pointermove", onPointerMove);
+    window.addEventListener("click", onMouseDown);
+    window.addEventListener("touchend", touchEnd);
+    console.log(onMouseDown);
+    function onPointerMove(event) {
+      if (selectedObject) {
+        selectedObject = null;
+      }
+      pointer.x = event.clientX / window.innerWidth * 2 - 1;
+      pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      raycaster.setFromCamera(pointer, camera);
+      const intersects2 = raycaster.intersectObjects(scene.children, true);
+      for (let i = 0; i < intersects2.length; i++) {
+        const intersect = intersects2[i];
+        if (intersect && intersect.object) {
+          selectedObject = intersect.object;
+          intersect.object.material.color.set("pink");
+        }
+      }
+    }
+    function onMouseDown(event) {
+      if (selectedObject) {
+        window.location.href = "https://baesianz.com/";
+      }
+    }
+    function touchEnd(event) {
+      if (selectedObject) {
+        window.location.href = "https://baesianz.com/";
+      }
+    }
+    function render() {
+      renderer.render(scene, camera);
+    }
+    window.requestAnimationFrame(render);
     const controls = new OrbitControls(camera, renderer.domElement);
     const animate = () => {
       controls.update();
@@ -37546,6 +37586,16 @@ function App() {
       window.requestAnimationFrame(animate);
     };
     animate();
+    renderer.setAnimationLoop(function() {
+      renderer.render(scene, camera);
+    });
+    function onWindowResize() {
+      windowHalfX = window.innerWidth / 2;
+      windowHalfY = window.innerHeight / 2;
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    }
   }, []);
   return /* @__PURE__ */ jsx("div", {
     children: /* @__PURE__ */ jsx("canvas", {
