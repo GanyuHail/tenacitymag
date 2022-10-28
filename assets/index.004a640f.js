@@ -37525,6 +37525,8 @@ function App() {
     const renderer = new WebGLRenderer({
       canvas
     });
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(innerWidth, innerHeight);
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
     const ambientLight = new AmbientLight(16761035, 2);
