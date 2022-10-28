@@ -37551,7 +37551,6 @@ function App() {
     console.log(onMouseDown);
     function onPointerMove(event) {
       if (selectedObject) {
-        selectedObject.material.color.set("white");
         selectedObject = null;
       }
       pointer.x = event.clientX / window.innerWidth * 2 - 1;
