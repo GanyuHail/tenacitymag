@@ -37942,7 +37942,7 @@ function App() {
         const intersect = intersects2[i];
         if (intersect && intersect.object) {
           selectedObject = intersect.object;
-          intersect.object.material.color.set(14420416);
+          intersect.object.material.color.set("rgba(220, 9, 192, 0.15)");
         }
       }
     }
