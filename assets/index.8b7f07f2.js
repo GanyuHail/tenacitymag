@@ -37910,8 +37910,11 @@ function App() {
     spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
     const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/bl3/main/src/");
+    loader.preload();
     loader.load("baesLogoMaster5.gltf", function(gltf) {
       scene.add(gltf.scene);
+    }, function(xhr) {
+      console.log(xhr.loaded / xhr.total * 100 + "% loaded");
     });
     window.addEventListener("resize", onWindowResize, false);
     const raycaster = new Raycaster();
