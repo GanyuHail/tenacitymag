@@ -37910,6 +37910,20 @@ function App() {
     spotLight.position.set(12, 64, 32);
     spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
+    var progress = document.createElement("div");
+    var progressBar = document.createElement("div");
+    progress.appendChild(progressBar);
+    document.body.appendChild(progress);
+    var manager = new LoadingManager();
+    manager.onProgress = function(item, loaded, total) {
+      progressBar.style.width = loaded / total * 100 + "%";
+    };
+    function addRandomPlaceHoldItImage() {
+      var r2 = Math.round(Math.random() * 4e3);
+      new ImageLoader(manager).load("//picsum.photos/" + r2 + "/" + r2);
+    }
+    for (var i = 0; i < 10; i++)
+      addRandomPlaceHoldItImage();
     const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/bl3/main/src/");
     var dracoLoader = new threeDracoloader();
     threeDracoloader.setDecoderPath("/three-dracoloader");
@@ -37930,11 +37944,11 @@ function App() {
       pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
       raycaster.setFromCamera(pointer, camera);
       const intersects2 = raycaster.intersectObjects(scene.children, true);
-      for (let i = 0; i < intersects2.length; i++) {
-        const intersect = intersects2[i];
+      for (let i2 = 0; i2 < intersects2.length; i2++) {
+        const intersect = intersects2[i2];
         if (intersect && intersect.object) {
           selectedObject = intersect.object;
-          intersect.object.material.color.set("f u");
+          intersect.object.material.color.set("say no to transphobia");
         }
       }
     }
