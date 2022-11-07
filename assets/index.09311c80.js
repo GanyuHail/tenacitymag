@@ -37918,13 +37918,14 @@ function App() {
     renderer.setSize(innerWidth, innerHeight);
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
-    const ambientLight = new AmbientLight(16777215, 3);
-    ambientLight.physicallyCorrectLights = true;
-    scene.add(ambientLight);
     const spotLight = new SpotLight(16777215, 2);
     spotLight.position.set(12, 64, 32);
     spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
+    const spotLight2 = new SpotLight(16777215, 1.5);
+    spotLight2.position.set(-12, -64, -32);
+    spotLight.physicallyCorrectLights = true;
+    scene.add(spotLight2);
     const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/bl3/main/src/");
     var dracoLoader = new threeDracoloader();
     threeDracoloader.setDecoderPath("/three-dracoloader");
