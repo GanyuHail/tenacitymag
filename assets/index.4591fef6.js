@@ -37235,6 +37235,7 @@ DRACOLoader.releaseDecoderModule = function() {
 DRACOLoader.getDecoderModule = function() {
   console.warn("THREE.DRACOLoader: The .getDecoderModule() method has been removed. Use instance methods.");
 };
+var threeDracoloader = DRACOLoader;
 var OrbitControls = function(object, domElement) {
   if (domElement === void 0)
     console.warn('THREE.OrbitControls: The second parameter "domElement" is now mandatory.');
@@ -37910,7 +37911,10 @@ function App() {
     spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
     const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/bl3/main/src/");
-    loader.load("baesLogoMaster6.gltf", function(gltf) {
+    var dracoLoader = new threeDracoloader();
+    threeDracoloader.setDecoderPath("/three-dracoloader");
+    loader.setDRACOLoader(dracoLoader);
+    loader.load("baesLogoMaster5.gltf", function(gltf) {
       scene.add(gltf.scene);
     }, function(xhr) {
       console.log(xhr.loaded / xhr.total * 100 + "% loaded");
@@ -37934,7 +37938,7 @@ function App() {
         const intersect = intersects2[i];
         if (intersect && intersect.object) {
           selectedObject = intersect.object;
-          intersect.object.material.color.set("pink");
+          intersect.object.material.color.set("white");
         }
       }
     }
