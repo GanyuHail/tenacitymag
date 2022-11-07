@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import GLTFLoader from 'three-gltf-loader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
-let selectedObject = null; 
+let selectedObject = null;
 
 function App() {
   useEffect(() => {
@@ -24,8 +24,8 @@ function App() {
     const renderer = new THREE.WebGLRenderer({
       canvas,
     });
-    renderer.setPixelRatio( window.devicePixelRatio );
-    renderer.setSize( innerWidth, innerHeight );
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(innerWidth, innerHeight);
 
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
@@ -41,10 +41,45 @@ function App() {
     spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
 
-    const loader = new GLTFLoader().setPath('https://raw.githubusercontent.com/GanyuHail/bl3/main/src/');
-    loader.load('baesLogoMaster6.gltf', function (gltf) {
-      scene.add(gltf.scene);
-    });
+    // Instantiate a loader
+    const loader = new DRACOLoader();
+
+    // Specify path to a folder containing WASM/JS decoding libraries.
+    loader.setDecoderPath('/examples/js/libs/draco/');
+
+    // Optional: Pre-fetch Draco WASM/JS module.
+    loader.preload();
+
+    // Load a Draco geometry
+    loader.load(
+      // resource URL
+      'https://raw.githubusercontent.com/GanyuHail/bl3/main/src/',
+      // called when the resource is loaded
+      function (geometry) {
+
+        const material = new THREE.MeshStandardMaterial({ color: 0x606060 });
+        const mesh = new THREE.Mesh(geometry, material);
+        scene.add(mesh);
+
+      },
+      // called as loading progresses
+      function (xhr) {
+
+        console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+
+      },
+      // called when loading has errors
+      function (error) {
+
+        console.log('An error happened');
+
+      }
+    );
+
+    // const loader = new GLTFLoader().setPath('https://raw.githubusercontent.com/GanyuHail/bl3/main/src/');
+    // loader.load('baesLogoMaster6.gltf', function (gltf) {
+    //   scene.add(gltf.scene);
+    // });
 
     window.addEventListener('resize', onWindowResize, false);
 
@@ -105,9 +140,9 @@ function App() {
     };
     animate();
 
-    renderer.setAnimationLoop( function () {
+    renderer.setAnimationLoop(function () {
       renderer.render(scene, camera);
-    } );
+    });
 
     function onWindowResize() {
       windowHalfX = window.innerWidth / 2;
