@@ -37910,7 +37910,7 @@ function App() {
     spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
     const loader = new threeDracoloader.DRACOLoader();
-    loader.setDecoderPath("/examples/js/libs/draco/");
+    loader.setDecoderPath("three/examples/js/libs/draco/");
     loader.preload();
     loader.load("https://raw.githubusercontent.com/GanyuHail/bl3/main/src/baesLogoMaster6", function(geometry) {
       const material = new MeshStandardMaterial({
