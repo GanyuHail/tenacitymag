@@ -37234,6 +37234,7 @@ DRACOLoader.releaseDecoderModule = function() {
 DRACOLoader.getDecoderModule = function() {
   console.warn("THREE.DRACOLoader: The .getDecoderModule() method has been removed. Use instance methods.");
 };
+var threeDracoloader = DRACOLoader;
 var OrbitControls = function(object, domElement) {
   if (domElement === void 0)
     console.warn('THREE.OrbitControls: The second parameter "domElement" is now mandatory.');
@@ -37908,7 +37909,7 @@ function App() {
     spotLight.position.set(12, 64, 32);
     spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
-    const loader = new (void 0)();
+    const loader = new threeDracoloader();
     loader.setDecoderPath("three-dracoloader");
     loader.preload();
     loader.load("https://raw.githubusercontent.com/GanyuHail/bl3/main/src/baesLogoMaster6", function(geometry) {
