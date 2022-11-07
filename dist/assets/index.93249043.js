@@ -37539,7 +37539,7 @@ function App() {
     spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
     const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/bl3/main/src/");
-    loader.load("baesLogoMaster5.gltf", function(gltf) {
+    loader.load("baesLogoMaster6.gltf", function(gltf) {
       scene.add(gltf.scene);
     });
     window.addEventListener("resize", onWindowResize, false);

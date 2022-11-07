@@ -42,7 +42,7 @@ function App() {
     scene.add(spotLight);
 
     const loader = new GLTFLoader().setPath('https://raw.githubusercontent.com/GanyuHail/bl3/main/src/');
-    loader.load('baesLogoMaster5.gltf', function (gltf) {
+    loader.load('baesLogoMaster6.gltf', function (gltf) {
       scene.add(gltf.scene);
     });
 
@@ -106,7 +106,7 @@ function App() {
     animate();
 
     renderer.setAnimationLoop( function () {
-      renderer.render( scene, camera );
+      renderer.render(scene, camera);
     } );
 
     function onWindowResize() {
