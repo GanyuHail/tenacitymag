@@ -37914,7 +37914,7 @@ function App() {
     var dracoLoader = new threeDracoloader();
     threeDracoloader.setDecoderPath("/three-dracoloader");
     loader.setDRACOLoader(dracoLoader);
-    loader.load("baesLogoMaster5.gltf", function(gltf) {
+    loader.load("baesLogoMaster6.gltf", function(gltf) {
       scene.add(gltf.scene);
     }, function(xhr) {
       console.log(xhr.loaded / xhr.total * 100 + "% loaded");
