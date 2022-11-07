@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import * as THREE from 'three';
 import GLTFLoader from 'three-gltf-loader';
+import DRACOLoader from 'three-dracoloader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 let selectedObject = null;
@@ -41,45 +42,44 @@ function App() {
     spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
 
-    // Instantiate a loader
-    const loader = new DRACOLoader();
+    // const loader = new DRACOLoader();
+    // loader.setDecoderPath('three-dracoloader');
+    // loader.preload();
 
-    // Specify path to a folder containing WASM/JS decoding libraries.
-    loader.setDecoderPath('/examples/js/libs/draco/');
+    // loader.load(
+    //   'https://raw.githubusercontent.com/GanyuHail/bl3/main/src/baesLogoMaster6',
+    //   function (geometry) {
 
-    // Optional: Pre-fetch Draco WASM/JS module.
-    loader.preload();
+    //     const material = new THREE.MeshStandardMaterial({ color: 0x606060 });
+    //     const mesh = new THREE.Mesh(geometry, material);
+    //     scene.add(mesh);
 
-    // Load a Draco geometry
-    loader.load(
-      // resource URL
-      'https://raw.githubusercontent.com/GanyuHail/bl3/main/src/',
-      // called when the resource is loaded
-      function (geometry) {
+    //   },
+    //   function (xhr) {
+    //     console.log((xhr.loaded / xhr.total * 100) + '% loaded');
 
-        const material = new THREE.MeshStandardMaterial({ color: 0x606060 });
-        const mesh = new THREE.Mesh(geometry, material);
-        scene.add(mesh);
+    //   },
+    //   function (error) {
+    //     console.log('An error happened');
+    //   }
+    // );
 
-      },
-      // called as loading progresses
+    const loader = new GLTFLoader().setPath('https://raw.githubusercontent.com/GanyuHail/bl3/main/src/');
+    var dracoLoader = new DRACOLoader();
+    DRACOLoader.setDecoderPath('/three-dracoloader');
+    loader.setDRACOLoader(dracoLoader);
+
+    loader.load('baesLogoMaster5.gltf', function (gltf) {
+      scene.add(gltf.scene);
+    },
       function (xhr) {
-
         console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-
       },
-      // called when loading has errors
-      function (error) {
-
-        console.log('An error happened');
-
-      }
     );
+    //   function (xhr) {
+    //     console.log((xhr.loaded / xhr.total * 100) + '% loaded');
 
-    // const loader = new GLTFLoader().setPath('https://raw.githubusercontent.com/GanyuHail/bl3/main/src/');
-    // loader.load('baesLogoMaster6.gltf', function (gltf) {
-    //   scene.add(gltf.scene);
-    // });
+    //   },
 
     window.addEventListener('resize', onWindowResize, false);
 
@@ -108,7 +108,7 @@ function App() {
 
         if (intersect && intersect.object) {
           selectedObject = intersect.object;
-          intersect.object.material.color.set('pink');
+          intersect.object.material.color.set('#00FFFFFF');
         }
       }
     };
