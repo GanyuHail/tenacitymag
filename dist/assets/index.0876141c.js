@@ -37887,6 +37887,18 @@ const jsx = jsxRuntime.exports.jsx;
 let selectedObject = null;
 function App() {
   react.exports.useEffect(() => {
+    DefaultLoadingManager.onStart = function(url, itemsLoaded, itemsTotal) {
+      console.log("Started loading file: " + url + ".\nLoaded " + itemsLoaded + " of " + itemsTotal + " files.");
+    };
+    DefaultLoadingManager.onLoad = function() {
+      console.log("Loading Complete!");
+    };
+    DefaultLoadingManager.onProgress = function(url, itemsLoaded, itemsTotal) {
+      console.log("Loading file: " + url + ".\nLoaded " + itemsLoaded + " of " + itemsTotal + " files.");
+    };
+    DefaultLoadingManager.onError = function(url) {
+      console.log("There was an error loading " + url);
+    };
     const scene = new Scene();
     const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 500);
     camera.position.x = 0;
@@ -37901,25 +37913,14 @@ function App() {
     renderer.setSize(innerWidth, innerHeight);
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
-    const ambientLight = new AmbientLight(16761035, 2);
-    ambientLight.castShadow = true;
-    ambientLight.physicallyCorrectLights = true;
-    scene.add(ambientLight);
     const spotLight = new SpotLight(16777215, 2);
-    spotLight.castShadow = true;
     spotLight.position.set(12, 64, 32);
     spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
-    var progress = document.createElement("div");
-    var progressBar = document.createElement("div");
-    progress.appendChild(progressBar);
-    document.body.appendChild(progress);
-    var manager = new LoadingManager();
-    manager.onProgress = function(item, loaded, total) {
-      progressBar.style.width = loaded / total * 100 + "%";
-    };
-    for (var i = 0; i < 10; i++)
-      addRandomPlaceHoldItImage();
+    const spotLight2 = new SpotLight(16777215, 1.5);
+    spotLight2.position.set(-12, -64, -32);
+    spotLight.physicallyCorrectLights = true;
+    scene.add(spotLight2);
     const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/bl3/main/src/");
     var dracoLoader = new threeDracoloader();
     threeDracoloader.setDecoderPath("/three-dracoloader");
@@ -37940,8 +37941,8 @@ function App() {
       pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
       raycaster.setFromCamera(pointer, camera);
       const intersects2 = raycaster.intersectObjects(scene.children, true);
-      for (let i2 = 0; i2 < intersects2.length; i2++) {
-        const intersect = intersects2[i2];
+      for (let i = 0; i < intersects2.length; i++) {
+        const intersect = intersects2[i];
         if (intersect && intersect.object) {
           selectedObject = intersect.object;
           intersect.object.material.color.set("say no to transphobia");

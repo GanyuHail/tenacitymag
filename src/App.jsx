@@ -8,6 +8,23 @@ let selectedObject = null;
 
 function App() {
   useEffect(() => {
+
+    THREE.DefaultLoadingManager.onStart = function ( url, itemsLoaded, itemsTotal ) {
+      console.log( 'Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
+    };
+    
+    THREE.DefaultLoadingManager.onLoad = function ( ) {
+      console.log( 'Loading Complete!');
+    };
+    
+    THREE.DefaultLoadingManager.onProgress = function ( url, itemsLoaded, itemsTotal ) {
+      console.log( 'Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
+    };
+    
+    THREE.DefaultLoadingManager.onError = function ( url ) {
+      console.log( 'There was an error loading ' + url );
+    };
+
     const scene = new THREE.Scene();
 
     const camera = new THREE.PerspectiveCamera(
@@ -31,29 +48,17 @@ function App() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    const ambientLight = new THREE.AmbientLight(0xFFC0CB, 2);
-    ambientLight.castShadow = true;
-    ambientLight.physicallyCorrectLights = true;
-    scene.add(ambientLight);
-
     const spotLight = new THREE.SpotLight(0xffffff, 2);
-    spotLight.castShadow = true;
+    //spotLight.castShadow = true;
     spotLight.position.set(12, 64, 32);
     spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
 
-    var progress = document.createElement('div');
-    var progressBar = document.createElement('div');
-
-    progress.appendChild(progressBar);
-    document.body.appendChild(progress);
-
-    var manager = new THREE.LoadingManager();
-    manager.onProgress = function (item, loaded, total) {
-      progressBar.style.width = (loaded / total * 100) + '%';
-    };
-
-    for (var i = 0; i < 10; i++) addRandomPlaceHoldItImage();
+    const spotLight2 = new THREE.SpotLight(0xffffff, 1.5);
+    // //spotLight.castShadow = true;
+    spotLight2.position.set(-12, -64, -32);
+    spotLight.physicallyCorrectLights = true;
+    scene.add(spotLight2);
 
     const loader = new GLTFLoader().setPath('https://raw.githubusercontent.com/GanyuHail/bl3/main/src/');
     var dracoLoader = new DRACOLoader();
