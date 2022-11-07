@@ -37906,10 +37906,11 @@ function App() {
     ambientLight.physicallyCorrectLights = true;
     scene.add(ambientLight);
     const spotLight = new SpotLight(16777215, 2);
-    spotLight.castShadow = true;
     spotLight.position.set(12, 64, 32);
-    spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
+    const spotLight2 = new SpotLight(16777215, 2);
+    spotLight2.position.set(-12, -64, -32);
+    scene.add(spotLight2);
     var progress = document.createElement("div");
     var progressBar = document.createElement("div");
     progress.appendChild(progressBar);
@@ -37918,6 +37919,7 @@ function App() {
     manager.onProgress = function(item, loaded, total) {
       progressBar.style.width = loaded / total * 100 + "%";
     };
+    console.log(progress);
     const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/bl3/main/src/");
     var dracoLoader = new threeDracoloader();
     threeDracoloader.setDecoderPath("/three-dracoloader");
