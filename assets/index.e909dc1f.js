@@ -37887,6 +37887,18 @@ const jsx = jsxRuntime.exports.jsx;
 let selectedObject = null;
 function App() {
   react.exports.useEffect(() => {
+    DefaultLoadingManager.onStart = function(url, itemsLoaded, itemsTotal) {
+      console.log("Started loading file: " + url + ".\nLoaded " + itemsLoaded + " of " + itemsTotal + " files.");
+    };
+    DefaultLoadingManager.onLoad = function() {
+      console.log("Loading Complete!");
+    };
+    DefaultLoadingManager.onProgress = function(url, itemsLoaded, itemsTotal) {
+      console.log("Loading file: " + url + ".\nLoaded " + itemsLoaded + " of " + itemsTotal + " files.");
+    };
+    DefaultLoadingManager.onError = function(url) {
+      console.log("There was an error loading " + url);
+    };
     const scene = new Scene();
     const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 500);
     camera.position.x = 0;
