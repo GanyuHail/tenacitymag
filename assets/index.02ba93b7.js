@@ -37918,8 +37918,6 @@ function App() {
     manager.onProgress = function(item, loaded, total) {
       progressBar.style.width = loaded / total * 100 + "%";
     };
-    for (var i = 0; i < 10; i++)
-      addRandomPlaceHoldItImage();
     const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/bl3/main/src/");
     var dracoLoader = new threeDracoloader();
     threeDracoloader.setDecoderPath("/three-dracoloader");
@@ -37940,8 +37938,8 @@ function App() {
       pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
       raycaster.setFromCamera(pointer, camera);
       const intersects2 = raycaster.intersectObjects(scene.children, true);
-      for (let i2 = 0; i2 < intersects2.length; i2++) {
-        const intersect = intersects2[i2];
+      for (let i = 0; i < intersects2.length; i++) {
+        const intersect = intersects2[i];
         if (intersect && intersect.object) {
           selectedObject = intersect.object;
           intersect.object.material.color.set("say no to transphobia");
