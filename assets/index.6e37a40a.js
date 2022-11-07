@@ -27199,8 +27199,8 @@ function LoadingManager(onLoad, onProgress, onError) {
   };
 }
 var DefaultLoadingManager = new LoadingManager();
-function Loader(manager) {
-  this.manager = manager !== void 0 ? manager : DefaultLoadingManager;
+function Loader(manager2) {
+  this.manager = manager2 !== void 0 ? manager2 : DefaultLoadingManager;
   this.crossOrigin = "anonymous";
   this.path = "";
   this.resourcePath = "";
@@ -27224,8 +27224,8 @@ Object.assign(Loader.prototype, {
   }
 });
 var loading = {};
-function FileLoader$1(manager) {
-  Loader.call(this, manager);
+function FileLoader$1(manager2) {
+  Loader.call(this, manager2);
 }
 FileLoader$1.prototype = Object.assign(Object.create(Loader.prototype), {
   constructor: FileLoader$1,
@@ -27397,8 +27397,8 @@ FileLoader$1.prototype = Object.assign(Object.create(Loader.prototype), {
     return this;
   }
 });
-function AnimationLoader(manager) {
-  Loader.call(this, manager);
+function AnimationLoader(manager2) {
+  Loader.call(this, manager2);
 }
 AnimationLoader.prototype = Object.assign(Object.create(Loader.prototype), {
   constructor: AnimationLoader,
@@ -27419,8 +27419,8 @@ AnimationLoader.prototype = Object.assign(Object.create(Loader.prototype), {
     return animations;
   }
 });
-function CompressedTextureLoader(manager) {
-  Loader.call(this, manager);
+function CompressedTextureLoader(manager2) {
+  Loader.call(this, manager2);
 }
 CompressedTextureLoader.prototype = Object.assign(Object.create(Loader.prototype), {
   constructor: CompressedTextureLoader,
@@ -27488,8 +27488,8 @@ CompressedTextureLoader.prototype = Object.assign(Object.create(Loader.prototype
     return texture;
   }
 });
-function DataTextureLoader(manager) {
-  Loader.call(this, manager);
+function DataTextureLoader(manager2) {
+  Loader.call(this, manager2);
 }
 DataTextureLoader.prototype = Object.assign(Object.create(Loader.prototype), {
   constructor: DataTextureLoader,
@@ -27535,8 +27535,8 @@ DataTextureLoader.prototype = Object.assign(Object.create(Loader.prototype), {
     return texture;
   }
 });
-function ImageLoader(manager) {
-  Loader.call(this, manager);
+function ImageLoader(manager2) {
+  Loader.call(this, manager2);
 }
 ImageLoader.prototype = Object.assign(Object.create(Loader.prototype), {
   constructor: ImageLoader,
@@ -27583,8 +27583,8 @@ ImageLoader.prototype = Object.assign(Object.create(Loader.prototype), {
     return image;
   }
 });
-function CubeTextureLoader(manager) {
-  Loader.call(this, manager);
+function CubeTextureLoader(manager2) {
+  Loader.call(this, manager2);
 }
 CubeTextureLoader.prototype = Object.assign(Object.create(Loader.prototype), {
   constructor: CubeTextureLoader,
@@ -27611,8 +27611,8 @@ CubeTextureLoader.prototype = Object.assign(Object.create(Loader.prototype), {
     return texture;
   }
 });
-function TextureLoader(manager) {
-  Loader.call(this, manager);
+function TextureLoader(manager2) {
+  Loader.call(this, manager2);
 }
 TextureLoader.prototype = Object.assign(Object.create(Loader.prototype), {
   constructor: TextureLoader,
@@ -29041,8 +29041,8 @@ RectAreaLight.prototype = Object.assign(Object.create(Light.prototype), {
     return data;
   }
 });
-function MaterialLoader(manager) {
-  Loader.call(this, manager);
+function MaterialLoader(manager2) {
+  Loader.call(this, manager2);
   this.textures = {};
 }
 MaterialLoader.prototype = Object.assign(Object.create(Loader.prototype), {
@@ -29348,8 +29348,8 @@ InstancedBufferAttribute.prototype = Object.assign(Object.create(BufferAttribute
     return data;
   }
 });
-function BufferGeometryLoader(manager) {
-  Loader.call(this, manager);
+function BufferGeometryLoader(manager2) {
+  Loader.call(this, manager2);
 }
 BufferGeometryLoader.prototype = Object.assign(Object.create(Loader.prototype), {
   constructor: BufferGeometryLoader,
@@ -29431,8 +29431,8 @@ var TYPED_ARRAYS = {
   Float32Array,
   Float64Array
 };
-function ObjectLoader(manager) {
-  Loader.call(this, manager);
+function ObjectLoader(manager2) {
+  Loader.call(this, manager2);
 }
 ObjectLoader.prototype = Object.assign(Object.create(Loader.prototype), {
   constructor: ObjectLoader,
@@ -29656,8 +29656,8 @@ ObjectLoader.prototype = Object.assign(Object.create(Loader.prototype), {
       });
     }
     if (json !== void 0 && json.length > 0) {
-      var manager = new LoadingManager(onLoad);
-      var loader = new ImageLoader(manager);
+      var manager2 = new LoadingManager(onLoad);
+      var loader = new ImageLoader(manager2);
       loader.setCrossOrigin(this.crossOrigin);
       for (var i = 0, il2 = json.length; i < il2; i++) {
         var image = json[i];
@@ -29955,14 +29955,14 @@ var TEXTURE_FILTER = {
   LinearMipmapNearestFilter,
   LinearMipmapLinearFilter
 };
-function ImageBitmapLoader(manager) {
+function ImageBitmapLoader(manager2) {
   if (typeof createImageBitmap === "undefined") {
     console.warn("THREE.ImageBitmapLoader: createImageBitmap() not supported.");
   }
   if (typeof fetch === "undefined") {
     console.warn("THREE.ImageBitmapLoader: fetch() not supported.");
   }
-  Loader.call(this, manager);
+  Loader.call(this, manager2);
   this.options = void 0;
 }
 ImageBitmapLoader.prototype = Object.assign(Object.create(Loader.prototype), {
@@ -30254,8 +30254,8 @@ function createPath(char, scale, offsetX, offsetY, data) {
   }
   return { offsetX: glyph.ha * scale, path };
 }
-function FontLoader(manager) {
-  Loader.call(this, manager);
+function FontLoader(manager2) {
+  Loader.call(this, manager2);
 }
 FontLoader.prototype = Object.assign(Object.create(Loader.prototype), {
   constructor: FontLoader,
@@ -30292,8 +30292,8 @@ var AudioContext = {
     _context = value;
   }
 };
-function AudioLoader(manager) {
-  Loader.call(this, manager);
+function AudioLoader(manager2) {
+  Loader.call(this, manager2);
 }
 AudioLoader.prototype = Object.assign(Object.create(Loader.prototype), {
   constructor: AudioLoader,
@@ -33707,13 +33707,13 @@ Loader.Handlers = {
     console.error("THREE.Loader: Handlers.get() has been removed. Use LoadingManager.getHandler() instead.");
   }
 };
-function XHRLoader(manager) {
+function XHRLoader(manager2) {
   console.warn("THREE.XHRLoader has been renamed to THREE.FileLoader.");
-  return new FileLoader$1(manager);
+  return new FileLoader$1(manager2);
 }
-function BinaryTextureLoader(manager) {
+function BinaryTextureLoader(manager2) {
   console.warn("THREE.BinaryTextureLoader has been renamed to THREE.DataTextureLoader.");
-  return new DataTextureLoader(manager);
+  return new DataTextureLoader(manager2);
 }
 Object.assign(ObjectLoader.prototype, {
   setTexturePath: function(value) {
@@ -35173,8 +35173,8 @@ const three_module = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.define
 const require$$0 = /* @__PURE__ */ getAugmentedNamespace(three_module);
 var THREE$2 = require$$0;
 var _GLTFLoader = function() {
-  function GLTFLoader(manager) {
-    THREE$2.Loader.call(this, manager);
+  function GLTFLoader(manager2) {
+    THREE$2.Loader.call(this, manager2);
     this.dracoLoader = null;
     this.ddsLoader = null;
   }
@@ -36865,8 +36865,8 @@ var _GLTFLoader = function() {
 }();
 var threeGltfLoader = _GLTFLoader;
 var THREE$1 = require$$0;
-var DRACOLoader = function(manager) {
-  THREE$1.Loader.call(this, manager);
+var DRACOLoader = function(manager2) {
+  THREE$1.Loader.call(this, manager2);
   this.decoderPath = "";
   this.decoderConfig = {};
   this.decoderBinary = null;
@@ -37885,6 +37885,13 @@ reactJsxRuntime_production_min.jsxs = q;
 })(jsxRuntime);
 const jsx = jsxRuntime.exports.jsx;
 let selectedObject = null;
+var manager = new LoadingManager();
+manager.onProgress = function(url, itemsLoaded, itemsTotal) {
+  progressElement.style.width = itemsLoaded / itemsTotal * 100 + "%";
+};
+({
+  Texture: new TextureLoader(manager)
+});
 function App() {
   react.exports.useEffect(() => {
     const scene = new Scene();
@@ -37910,13 +37917,6 @@ function App() {
     spotLight.position.set(12, 64, 32);
     spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
-    var manager = new LoadingManager();
-    manager.onProgress = function(url, itemsLoaded, itemsTotal) {
-      progressElement.style.width = itemsLoaded / itemsTotal * 100 + "%";
-    };
-    ({
-      Texture: new TextureLoader(manager)
-    });
     const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/bl3/main/src/");
     var dracoLoader = new threeDracoloader();
     threeDracoloader.setDecoderPath("/three-dracoloader");
@@ -37932,7 +37932,6 @@ function App() {
     window.addEventListener("pointermove", onPointerMove);
     window.addEventListener("click", onMouseDown);
     window.addEventListener("touchend", touchEnd);
-    console.log(onMouseDown);
     function onPointerMove(event) {
       if (selectedObject) {
         selectedObject = null;
@@ -37945,7 +37944,7 @@ function App() {
         const intersect = intersects2[i];
         if (intersect && intersect.object) {
           selectedObject = intersect.object;
-          intersect.object.material.color.set("0xff0000");
+          intersect.object.material.color.set(14420416);
         }
       }
     }
