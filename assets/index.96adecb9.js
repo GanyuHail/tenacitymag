@@ -37919,8 +37919,9 @@ function App() {
     scene.add(ambientLight);
     const spotLight = new SpotLight(16777215, 2);
     spotLight.position.set(12, 64, 32);
+    spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
-    const spotLight2 = new SpotLight(16777215, 2);
+    const spotLight2 = new SpotLight(16777215, 1);
     spotLight2.position.set(-12, -64, -32);
     scene.add(spotLight2);
     var progress = document.createElement("div");
