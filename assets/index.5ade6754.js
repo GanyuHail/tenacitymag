@@ -37540,7 +37540,7 @@ function App() {
     const loader = new DRACOLoader();
     loader.setDecoderPath("/examples/js/libs/draco/");
     loader.preload();
-    loader.load("https://raw.githubusercontent.com/GanyuHail/bl3/main/src/", function(geometry) {
+    loader.load("https://raw.githubusercontent.com/GanyuHail/bl3/main/src/baesLogoMaster6", function(geometry) {
       const material = new MeshStandardMaterial({
         color: 6316128
       });
