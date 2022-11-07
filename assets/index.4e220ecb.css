@@ -68,14 +68,3 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
-
-#myProgress {
-  width: 100%;
-  background-color: grey;
-}
-
-#myBar {
-  width: 1%;
-  height: 30px;
-  background-color: green;
-}
