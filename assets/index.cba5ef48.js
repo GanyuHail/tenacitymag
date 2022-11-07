@@ -37918,10 +37918,6 @@ function App() {
     manager.onProgress = function(item, loaded, total) {
       progressBar.style.width = loaded / total * 100 + "%";
     };
-    function addRandomPlaceHoldItImage() {
-      var r2 = Math.round(Math.random() * 4e3);
-      new ImageLoader(manager).load("//picsum.photos/" + r2 + "/" + r2);
-    }
     for (var i = 0; i < 10; i++)
       addRandomPlaceHoldItImage();
     const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/bl3/main/src/");
