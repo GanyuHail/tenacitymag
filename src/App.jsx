@@ -42,27 +42,18 @@ function App() {
     spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
 
-    // const loader = new DRACOLoader();
-    // loader.setDecoderPath('three-dracoloader');
-    // loader.preload();
+    var progress = document.createElement('div');
+    var progressBar = document.createElement('div');
 
-    // loader.load(
-    //   'https://raw.githubusercontent.com/GanyuHail/bl3/main/src/baesLogoMaster6',
-    //   function (geometry) {
+    progress.appendChild(progressBar);
+    document.body.appendChild(progress);
 
-    //     const material = new THREE.MeshStandardMaterial({ color: 0x606060 });
-    //     const mesh = new THREE.Mesh(geometry, material);
-    //     scene.add(mesh);
+    var manager = new THREE.LoadingManager();
+    manager.onProgress = function (item, loaded, total) {
+      progressBar.style.width = (loaded / total * 100) + '%';
+    };
 
-    //   },
-    //   function (xhr) {
-    //     console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-
-    //   },
-    //   function (error) {
-    //     console.log('An error happened');
-    //   }
-    // );
+    for (var i = 0; i < 10; i++) addRandomPlaceHoldItImage();
 
     const loader = new GLTFLoader().setPath('https://raw.githubusercontent.com/GanyuHail/bl3/main/src/');
     var dracoLoader = new DRACOLoader();
@@ -71,17 +62,11 @@ function App() {
 
     loader.load('baesLogoMaster5.gltf', function (gltf) {
       scene.add(gltf.scene);
-    },
-      function (xhr) {
-        console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-      },
-    );
+    });
     //   function (xhr) {
     //     console.log((xhr.loaded / xhr.total * 100) + '% loaded');
 
     //   },
-
-    window.addEventListener('resize', onWindowResize, false);
 
     const raycaster = new THREE.Raycaster();
     const pointer = new THREE.Vector2();
@@ -89,7 +74,6 @@ function App() {
     window.addEventListener('pointermove', onPointerMove);
     window.addEventListener('click', onMouseDown);
     window.addEventListener('touchend', touchEnd);
-    console.log(onMouseDown);
 
     function onPointerMove(event) {
       if (selectedObject) {
@@ -108,7 +92,7 @@ function App() {
 
         if (intersect && intersect.object) {
           selectedObject = intersect.object;
-          intersect.object.material.color.set('#00FFFFFF');
+          intersect.object.material.color.set("say no to transphobia");
         }
       }
     };
@@ -143,14 +127,6 @@ function App() {
     renderer.setAnimationLoop(function () {
       renderer.render(scene, camera);
     });
-
-    function onWindowResize() {
-      windowHalfX = window.innerWidth / 2;
-      windowHalfY = window.innerHeight / 2;
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    }
   }, []);
 
   return (

@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "gh-pages": "^4.0.0",
+    "loadscreen": "^0.18.14",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "three": "0.111.0",
