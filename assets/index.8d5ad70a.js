@@ -37924,7 +37924,6 @@ function App() {
     loader.load("baesLogoMaster5.gltf", function(gltf) {
       scene.add(gltf.scene);
     });
-    window.addEventListener("resize", onWindowResize, false);
     const raycaster = new Raycaster();
     const pointer = new Vector2();
     window.addEventListener("pointermove", onPointerMove);
