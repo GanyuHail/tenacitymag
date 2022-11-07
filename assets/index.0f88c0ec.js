@@ -27441,8 +27441,8 @@ CompressedTextureLoader.prototype = Object.assign(Object.create(Loader.prototype
           format: texDatas.format,
           mipmaps: texDatas.mipmaps
         };
-        loaded += 1;
-        if (loaded === 6) {
+        loaded2 += 1;
+        if (loaded2 === 6) {
           if (texDatas.mipmapCount === 1)
             texture.minFilter = LinearFilter;
           texture.format = texDatas.format;
@@ -27453,7 +27453,7 @@ CompressedTextureLoader.prototype = Object.assign(Object.create(Loader.prototype
       }, onProgress, onError);
     }
     if (Array.isArray(url)) {
-      var loaded = 0;
+      var loaded2 = 0;
       for (var i = 0, il2 = url.length; i < il2; ++i) {
         loadTexture(i);
       }
@@ -27593,12 +27593,12 @@ CubeTextureLoader.prototype = Object.assign(Object.create(Loader.prototype), {
     var loader = new ImageLoader(this.manager);
     loader.setCrossOrigin(this.crossOrigin);
     loader.setPath(this.path);
-    var loaded = 0;
+    var loaded2 = 0;
     function loadTexture(i2) {
       loader.load(urls[i2], function(image) {
         texture.images[i2] = image;
-        loaded++;
-        if (loaded === 6) {
+        loaded2++;
+        if (loaded2 === 6) {
           texture.needsUpdate = true;
           if (onLoad)
             onLoad(texture);
@@ -37889,12 +37889,17 @@ function App() {
   react.exports.useEffect(() => {
     DefaultLoadingManager.onStart = function(url, itemsLoaded, itemsTotal) {
       console.log("Started loading file: " + url + ".\nLoaded " + itemsLoaded + " of " + itemsTotal + " files.");
+      var progress = document.createElement("div");
+      var progressBar2 = document.createElement("div");
+      progress.appendChild(progressBar2);
+      document.body.appendChild(progress);
     };
     DefaultLoadingManager.onLoad = function() {
       console.log("Loading Complete!");
     };
     DefaultLoadingManager.onProgress = function(url, itemsLoaded, itemsTotal) {
       console.log("Loading file: " + url + ".\nLoaded " + itemsLoaded + " of " + itemsTotal + " files.");
+      progressBar.style.width = loaded / total * 100 + "%";
     };
     DefaultLoadingManager.onError = function(url) {
       console.log("There was an error loading " + url);
@@ -37913,26 +37918,13 @@ function App() {
     renderer.setSize(innerWidth, innerHeight);
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
-    const ambientLight = new AmbientLight(16761035, 2);
-    ambientLight.castShadow = true;
+    const ambientLight = new AmbientLight(16777215, 3);
     ambientLight.physicallyCorrectLights = true;
     scene.add(ambientLight);
     const spotLight = new SpotLight(16777215, 2);
     spotLight.position.set(12, 64, 32);
     spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
-    const spotLight2 = new SpotLight(16777215, 1);
-    spotLight2.position.set(-12, -64, -32);
-    scene.add(spotLight2);
-    var progress = document.createElement("div");
-    var progressBar = document.createElement("div");
-    progress.appendChild(progressBar);
-    document.body.appendChild(progress);
-    var manager = new LoadingManager();
-    manager.onProgress = function(item, loaded, total) {
-      progressBar.style.width = loaded / total * 100 + "%";
-    };
-    console.log(progress);
     const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/bl3/main/src/");
     var dracoLoader = new threeDracoloader();
     threeDracoloader.setDecoderPath("/three-dracoloader");
