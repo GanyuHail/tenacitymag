@@ -37910,13 +37910,10 @@ function App() {
     spotLight.position.set(12, 64, 32);
     spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
-    var manager = new LoadingManager();
-    manager.onProgress = function(url, itemsLoaded, itemsTotal) {
-      progressElement.style.width = itemsLoaded / itemsTotal * 100 + "%";
-    };
-    ({
-      Texture: new TextureLoader(manager)
-    });
+    const ls = new LoadScreen(renderer).onComplete(init).start(ASSETS);
+    function init() {
+      ls.remove(animate);
+    }
     const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/bl3/main/src/");
     var dracoLoader = new threeDracoloader();
     threeDracoloader.setDecoderPath("/three-dracoloader");
