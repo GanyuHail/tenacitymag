@@ -35172,7 +35172,7 @@ const three_module = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.define
 }, Symbol.toStringTag, { value: "Module" }));
 const require$$0 = /* @__PURE__ */ getAugmentedNamespace(three_module);
 var THREE$1 = require$$0;
-var _GLTFLoader = function() {
+(function() {
   function GLTFLoader(manager) {
     THREE$1.Loader.call(this, manager);
     this.dracoLoader = null;
@@ -36862,8 +36862,7 @@ var _GLTFLoader = function() {
     };
   }();
   return GLTFLoader;
-}();
-var threeGltfLoader = _GLTFLoader;
+})();
 var OrbitControls = function(object, domElement) {
   if (domElement === void 0)
     console.warn('THREE.OrbitControls: The second parameter "domElement" is now mandatory.');
@@ -37538,9 +37537,19 @@ function App() {
     spotLight.position.set(12, 64, 32);
     spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
-    const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/bl3/main/src/");
-    loader.load("baesLogoMaster6.gltf", function(gltf) {
-      scene.add(gltf.scene);
+    const loader = new DRACOLoader();
+    loader.setDecoderPath("/examples/js/libs/draco/");
+    loader.preload();
+    loader.load("https://raw.githubusercontent.com/GanyuHail/bl3/main/src/", function(geometry) {
+      const material = new MeshStandardMaterial({
+        color: 6316128
+      });
+      const mesh = new Mesh(geometry, material);
+      scene.add(mesh);
+    }, function(xhr) {
+      console.log(xhr.loaded / xhr.total * 100 + "% loaded");
+    }, function(error) {
+      console.log("An error happened");
     });
     window.addEventListener("resize", onWindowResize, false);
     const raycaster = new Raycaster();
