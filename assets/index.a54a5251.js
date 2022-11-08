@@ -37888,11 +37888,11 @@ let selectedObject = null;
 function App() {
   react.exports.useEffect(() => {
     const progressBar = document.getElementById("progress-bar");
-    LoadingManager.onProgress = function(url, loaded, total) {
+    DefaultLoadingManager.onProgress = function(url, loaded, total) {
       progressBar.value = loaded / total * 100;
     };
     const progressBarContainer = document.querySelector(".progress-bar-container");
-    LoadingManager.onLoad = function() {
+    DefaultLoadingManager.onLoad = function() {
       progressBarContainer.style.display = "none";
     };
     const scene = new Scene();
