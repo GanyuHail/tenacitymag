@@ -37887,17 +37887,13 @@ const jsx = jsxRuntime.exports.jsx;
 let selectedObject = null;
 function App() {
   react.exports.useEffect(() => {
-    DefaultLoadingManager.onStart = function(url, itemsLoaded, itemsTotal) {
-      console.log("Started loading file: " + url + ".\nLoaded " + itemsLoaded + " of " + itemsTotal + " files.");
+    const progressBar = document.getElementById("progress-bar");
+    DefaultLoadingManager.onProgress = function(url, loaded, total) {
+      progressBar.value = loaded / total * 100;
     };
+    const progressBarContainer = document.querySelector(".progress-bar-container");
     DefaultLoadingManager.onLoad = function() {
-      console.log("Loading Complete!");
-    };
-    DefaultLoadingManager.onProgress = function(url, itemsLoaded, itemsTotal) {
-      console.log("Loading file: " + url + ".\nLoaded " + itemsLoaded + " of " + itemsTotal + " files.");
-    };
-    DefaultLoadingManager.onError = function(url) {
-      console.log("There was an error loading " + url);
+      progressBarContainer.style.display = "none";
     };
     const scene = new Scene();
     const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 500);
@@ -37917,10 +37913,6 @@ function App() {
     spotLight.position.set(12, 64, 32);
     spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
-    const spotLight2 = new SpotLight(16777215, 1.5);
-    spotLight2.position.set(-12, -64, -32);
-    spotLight.physicallyCorrectLights = true;
-    scene.add(spotLight2);
     const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/bl3/main/src/");
     var dracoLoader = new threeDracoloader();
     threeDracoloader.setDecoderPath("/three-dracoloader");

@@ -9,20 +9,13 @@ let selectedObject = null;
 function App() {
   useEffect(() => {
 
-    THREE.DefaultLoadingManager.onStart = function ( url, itemsLoaded, itemsTotal ) {
-      console.log( 'Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
+    const progressBar = document.getElementById('progress-bar');
+    THREE.DefaultLoadingManager.onProgress = function (url, loaded, total) {
+      progressBar.value = (loaded / total) * 100;
     };
-    
-    THREE.DefaultLoadingManager.onLoad = function ( ) {
-      console.log( 'Loading Complete!');
-    };
-    
-    THREE.DefaultLoadingManager.onProgress = function ( url, itemsLoaded, itemsTotal ) {
-      console.log( 'Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
-    };
-    
-    THREE.DefaultLoadingManager.onError = function ( url ) {
-      console.log( 'There was an error loading ' + url );
+    const progressBarContainer = document.querySelector('.progress-bar-container');
+    THREE.DefaultLoadingManager.onLoad = function () {
+      progressBarContainer.style.display = 'none';
     };
 
     const scene = new THREE.Scene();
@@ -54,11 +47,11 @@ function App() {
     spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
 
-    const spotLight2 = new THREE.SpotLight(0xffffff, 1.5);
-    // //spotLight.castShadow = true;
-    spotLight2.position.set(-12, -64, -32);
-    spotLight.physicallyCorrectLights = true;
-    scene.add(spotLight2);
+    // const spotLight2 = new THREE.SpotLight(0xffffff, 1.5);
+    // // //spotLight.castShadow = true;
+    // spotLight2.position.set(-12, -64, -32);
+    // spotLight.physicallyCorrectLights = true;
+    // scene.add(spotLight2);
 
     const loader = new GLTFLoader().setPath('https://raw.githubusercontent.com/GanyuHail/bl3/main/src/');
     var dracoLoader = new DRACOLoader();
