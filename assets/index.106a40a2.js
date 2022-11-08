@@ -37891,6 +37891,9 @@ function App() {
     DefaultLoadingManager.onProgress = function(url, loaded, total) {
       progressBar.value = loaded / total * 100;
     };
+    DefaultLoadingManager.onStart = function(url, loaded, total) {
+      progressBar.value = loaded / total * 100;
+    };
     const progressBarContainer = document.querySelector(".progress-bar-container");
     DefaultLoadingManager.onLoad = function() {
       progressBarContainer.style.display = "none";
