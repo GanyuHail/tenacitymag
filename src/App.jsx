@@ -13,6 +13,9 @@ function App() {
     THREE.DefaultLoadingManager.onProgress = function (url, loaded, total) {
       progressBar.value = (loaded / total) * 100;
     };
+    THREE.DefaultLoadingManager.onStart = function (url, loaded, total) {
+      progressBar.value = (loaded / total) * 100;
+    };
     const progressBarContainer = document.querySelector('.progress-bar-container');
     THREE.DefaultLoadingManager.onLoad = function () {
       progressBarContainer.style.display = 'none';
