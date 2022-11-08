@@ -37888,13 +37888,13 @@ let selectedObject = null;
 function App() {
   react.exports.useEffect(() => {
     DefaultLoadingManager.onStart = function(url, itemsLoaded, itemsTotal) {
-      console.log("Started loading file: " + url + ".\nLoaded " + itemsLoaded + " of " + itemsTotal + " files.");
+      console.log(".\nLoaded " + itemsLoaded + " of " + itemsTotal + " files.");
     };
     DefaultLoadingManager.onLoad = function() {
       console.log("Loading Complete!");
     };
     DefaultLoadingManager.onProgress = function(url, itemsLoaded, itemsTotal) {
-      console.log("Loading file: " + url + ".\nLoaded " + itemsLoaded + " of " + itemsTotal + " files.");
+      console.log(".\nLoaded " + itemsLoaded + " of " + itemsTotal + " files.");
     };
     DefaultLoadingManager.onError = function(url) {
       console.log("There was an error loading " + url);
