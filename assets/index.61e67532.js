@@ -37887,24 +37887,12 @@ const jsx = jsxRuntime.exports.jsx;
 let selectedObject = null;
 function App() {
   react.exports.useEffect(() => {
-    DefaultLoadingManager.onStart = function(url, itemsLoaded, itemsTotal) {
-      console.log("Loaded " + itemsLoaded + " of " + itemsTotal + " files.");
-    };
-    DefaultLoadingManager.onProgress = function(url, itemsLoaded, itemsTotal) {
-      console.log("Loaded " + itemsLoaded + " of " + itemsTotal + " files.");
-    };
-    DefaultLoadingManager.onLoad = function() {
-      console.log("Loading Complete!");
-    };
-    DefaultLoadingManager.onError = function(url) {
-      console.log("There was an error loading " + url);
-    };
     const progressBar = document.getElementById("progress-bar");
-    DefaultLoadingManager.onProgress = function(url, loaded, total) {
+    LoadingManager.onProgress = function(url, loaded, total) {
       progressBar.value = loaded / total * 100;
     };
     const progressBarContainer = document.querySelector(".progress-bar-container");
-    DefaultLoadingManager.onLoad = function() {
+    LoadingManager.onLoad = function() {
       progressBarContainer.style.display = "none";
     };
     const scene = new Scene();
