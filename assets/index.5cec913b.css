@@ -74,8 +74,11 @@ button:focus-visible {
   width: 30%;
   margin-top: 0.5%;
   height: 2%;
-  color: pink;
 }
+
+progress::-moz-progress-bar { background: pink; }
+progress::-webkit-progress-value { background: pink; }
+progress { color: pink; }
 
 @media (prefers-color-scheme: light) {
   :root {
