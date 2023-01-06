@@ -37916,7 +37916,7 @@ function App() {
     spotLight.position.set(50, 64, 32);
     spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
-    const ambientLight = new AmbientLight(16777215, 1);
+    const ambientLight = new AmbientLight(16777215, 0.1);
     ambientLight.physicallyCorrectLights = true;
     scene.add(ambientLight);
     const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/oestropill/main/src/");
