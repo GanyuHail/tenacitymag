@@ -61,8 +61,8 @@ function App() {
     DRACOLoader.setDecoderPath('/three-dracoloader');
     loader.setDRACOLoader(dracoLoader);
 
-    loader.load('baesLogoMaster5.gltf', function (gltf) {
-      scene.add(gltf.scene);
+    loader.load('oestrobottle.glb', function (glb) {
+      scene.add(glb.scene);
     });
     //   function (xhr) {
     //     console.log((xhr.loaded / xhr.total * 100) + '% loaded');
