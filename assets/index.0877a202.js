@@ -37920,8 +37920,8 @@ function App() {
     var dracoLoader = new threeDracoloader();
     threeDracoloader.setDecoderPath("/three-dracoloader");
     loader.setDRACOLoader(dracoLoader);
-    loader.load("baesLogoMaster5.gltf", function(gltf) {
-      scene.add(gltf.scene);
+    loader.load("oestrobottle.glb", function(glb) {
+      scene.add(glb.scene);
     });
     const raycaster = new Raycaster();
     const pointer = new Vector2();
