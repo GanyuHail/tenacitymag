@@ -22,6 +22,7 @@ function App() {
     };
 
     const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xffffff);
 
     const camera = new THREE.PerspectiveCamera(
       50,
@@ -29,9 +30,9 @@ function App() {
       1,
       500
     );
-    camera.position.x = 0;
-    camera.position.z = 0;
-    camera.position.y = 20;
+    camera.position.x = 25;
+    camera.position.z = 25;
+    camera.position.y = 25;
     camera.lookAt(0, 0, 0);
 
     const canvas = document.getElementById('myThreeJsCanvas')
@@ -44,11 +45,16 @@ function App() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    const spotLight = new THREE.SpotLight(0xffffff, 2);
+    const spotLight = new THREE.SpotLight(0xFAEACD, 1.5);
     //spotLight.castShadow = true;
-    spotLight.position.set(12, 64, 32);
+    spotLight.position.set(50, 64, 32);
     spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
+
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+    ambientLight.physicallyCorrectLights = true;
+    scene.add(ambientLight);
+
 
     // const spotLight2 = new THREE.SpotLight(0xffffff, 1.5);
     // // //spotLight.castShadow = true;
@@ -56,12 +62,12 @@ function App() {
     // spotLight.physicallyCorrectLights = true;
     // scene.add(spotLight2);
 
-    const loader = new GLTFLoader().setPath('https://raw.githubusercontent.com/GanyuHail/bl3/main/src/');
+    const loader = new GLTFLoader().setPath('https://raw.githubusercontent.com/GanyuHail/oestropill/main/src/');
     var dracoLoader = new DRACOLoader();
     DRACOLoader.setDecoderPath('/three-dracoloader');
     loader.setDRACOLoader(dracoLoader);
 
-    loader.load('oestrobottle.glb', function (glb) {
+    loader.load('oestrobotpink.glb', function (glb) {
       scene.add(glb.scene);
     });
     //   function (xhr) {
