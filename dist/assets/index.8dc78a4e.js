@@ -37924,7 +37924,7 @@ function App() {
     var dracoLoader = new threeDracoloader();
     threeDracoloader.setDecoderPath("/three-dracoloader");
     loader.setDRACOLoader(dracoLoader);
-    loader.load("oestrobottle.glb", function(glb) {
+    loader.load("oestrobotpink.glb", function(glb) {
       scene.add(glb.scene);
     });
     const raycaster = new Raycaster();
