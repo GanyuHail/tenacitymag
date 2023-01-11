@@ -37910,11 +37910,12 @@ function App() {
       canvas,
       antialias: true
     });
+    renderer.shadowMap.enabled = true;
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(innerWidth, innerHeight);
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
-    const spotLight = new SpotLight(11393254, 0.8);
+    const spotLight = new SpotLight(11393254, 1.2);
     spotLight.position.set(50, 64, 32);
     spotLight.physicallyCorrectLights = true;
     spotLight.castShadow = true;
@@ -37926,9 +37927,10 @@ function App() {
     var dracoLoader = new threeDracoloader();
     threeDracoloader.setDecoderPath("/three-dracoloader");
     loader.setDRACOLoader(dracoLoader);
-    loader.load("oestrobotpink.glb", function(glb) {
-      scene.add(glb.scene);
+    loader.load("oestrobotpink.glb", function(glb2) {
+      scene.add(glb2.scene);
     });
+    glb.receiveShadow = true;
     const raycaster = new Raycaster();
     const pointer = new Vector2();
     window.addEventListener("pointermove", onPointerMove);

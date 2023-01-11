@@ -37,15 +37,16 @@ function App() {
 
     const canvas = document.getElementById('myThreeJsCanvas')
     const renderer = new THREE.WebGLRenderer({
-      canvas, antialias: true,
+      canvas, antialias: true, 
     });
+    renderer.shadowMap.enabled = true;
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(innerWidth, innerHeight);
 
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    const spotLight = new THREE.SpotLight(0xADD8E6, 0.8);
+    const spotLight = new THREE.SpotLight(0xADD8E6, 1.2);
     //spotLight.castShadow = true;
     spotLight.position.set(50, 64, 32);
     spotLight.physicallyCorrectLights = true;
@@ -75,6 +76,7 @@ function App() {
     //     console.log((xhr.loaded / xhr.total * 100) + '% loaded');
 
     //   },
+    glb.receiveShadow = true; 
 
     const raycaster = new THREE.Raycaster();
     const pointer = new THREE.Vector2();
