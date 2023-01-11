@@ -45,13 +45,14 @@ function App() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    const spotLight = new THREE.SpotLight(0xFAEACD, 0.6);
+    const spotLight = new THREE.SpotLight(0xADD8E6, 0.8);
     //spotLight.castShadow = true;
     spotLight.position.set(50, 64, 32);
     spotLight.physicallyCorrectLights = true;
+    spotLight.castShadow = true;
     scene.add(spotLight);
 
-    const ambientLight = new THREE.AmbientLight(0xFAEACD, 0.8);
+    const ambientLight = new THREE.AmbientLight(0xFAEACD, 1.0);
     ambientLight.physicallyCorrectLights = true;
     scene.add(ambientLight);
 

@@ -37914,11 +37914,12 @@ function App() {
     renderer.setSize(innerWidth, innerHeight);
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
-    const spotLight = new SpotLight(16444109, 0.6);
+    const spotLight = new SpotLight(11393254, 0.8);
     spotLight.position.set(50, 64, 32);
     spotLight.physicallyCorrectLights = true;
+    spotLight.castShadow = true;
     scene.add(spotLight);
-    const ambientLight = new AmbientLight(16444109, 0.8);
+    const ambientLight = new AmbientLight(16444109, 1);
     ambientLight.physicallyCorrectLights = true;
     scene.add(ambientLight);
     const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/oestropill/main/src/");
