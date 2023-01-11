@@ -22,7 +22,7 @@ function App() {
     };
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xffffff);
+    scene.background = new THREE.Color(0xFAEACD);
 
     const camera = new THREE.PerspectiveCamera(
       50,
@@ -45,13 +45,13 @@ function App() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    const spotLight = new THREE.SpotLight(0xFAEACD, 1.5);
+    const spotLight = new THREE.SpotLight(0xFAEACD, 0.5);
     //spotLight.castShadow = true;
     spotLight.position.set(50, 64, 32);
     spotLight.physicallyCorrectLights = true;
     scene.add(spotLight);
 
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+    const ambientLight = new THREE.AmbientLight(0xFAEACD, 0.5);
     ambientLight.physicallyCorrectLights = true;
     scene.add(ambientLight);
 
