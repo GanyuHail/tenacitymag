@@ -37930,7 +37930,7 @@ function App() {
     loader.load("oestrobotpink.glb", function(glb2) {
       scene.add(glb2.scene);
     });
-    glb.receiveShadow = true;
+    glb.scene.receiveShadow = true;
     const raycaster = new Raycaster();
     const pointer = new Vector2();
     window.addEventListener("pointermove", onPointerMove);
@@ -37954,12 +37954,12 @@ function App() {
     }
     function onMouseDown(event) {
       if (selectedObject) {
-        window.location.href = "https://baesianz.com/";
+        window.location.href = "https://landing.oestrogeneration.org/";
       }
     }
     function touchEnd(event) {
       if (selectedObject) {
-        window.location.href = "https://baesianz.com/";
+        window.location.href = "https://landing.oestrogeneration.org/";
       }
     }
     function render() {
