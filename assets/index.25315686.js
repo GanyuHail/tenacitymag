@@ -37899,7 +37899,7 @@ function App() {
       progressBarContainer.style.display = "none";
     };
     const scene = new Scene();
-    scene.background = new Color(15722493);
+    scene.background = "/src/landscape.jpeg";
     const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 500);
     camera.position.x = 25;
     camera.position.z = 25;
