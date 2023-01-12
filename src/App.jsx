@@ -76,7 +76,7 @@ function App() {
     //     console.log((xhr.loaded / xhr.total * 100) + '% loaded');
 
     //   },
-    glb.receiveShadow = true; 
+    glb.scene.receiveShadow = true; 
 
     const raycaster = new THREE.Raycaster();
     const pointer = new THREE.Vector2();
@@ -109,13 +109,13 @@ function App() {
 
     function onMouseDown(event) {
       if (selectedObject) {
-        window.location.href = "https://baesianz.com/";
+        window.location.href = "https://landing.oestrogeneration.org/";
       }
     };
 
     function touchEnd(event) {
       if (selectedObject) {
-        window.location.href = "https://baesianz.com/";
+        window.location.href = "https://landing.oestrogeneration.org/";
       }
     };
 
