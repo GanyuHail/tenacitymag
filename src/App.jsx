@@ -102,7 +102,7 @@ function App() {
 
         if (intersect && intersect.object) {
           selectedObject = intersect.object;
-          intersect.object.material.color.set("say no to transphobia");
+          intersect.object.material.color.set(0xFFFFFF);
         }
       }
     };
