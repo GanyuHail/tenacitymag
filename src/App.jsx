@@ -76,7 +76,7 @@ function App() {
     //     console.log((xhr.loaded / xhr.total * 100) + '% loaded');
 
     //   },
-    glb.scene.receiveShadow = true; 
+    scene.receiveShadow = true; 
 
     const raycaster = new THREE.Raycaster();
     const pointer = new THREE.Vector2();
