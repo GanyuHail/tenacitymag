@@ -22,7 +22,7 @@ function App() {
     };
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xEFE7FD);
+    scene.background = '/src/landscape.jpeg';
 
     const camera = new THREE.PerspectiveCamera(
       50,
@@ -57,7 +57,6 @@ function App() {
     const ambientLight = new THREE.AmbientLight(0xFAEACD, 1.0);
     ambientLight.physicallyCorrectLights = true;
     scene.add(ambientLight);
-
 
     // const spotLight2 = new THREE.SpotLight(0xffffff, 1.5);
     // // //spotLight.castShadow = true;
