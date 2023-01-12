@@ -37911,6 +37911,7 @@ function App() {
       antialias: true
     });
     renderer.shadowMap.enabled = true;
+    renderer.outputEncoding = sRGBEncoding;
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(innerWidth, innerHeight);
     renderer.setSize(window.innerWidth, window.innerHeight);

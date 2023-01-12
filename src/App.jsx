@@ -40,6 +40,7 @@ function App() {
       canvas, antialias: true, 
     });
     renderer.shadowMap.enabled = true;
+    renderer.outputEncoding = THREE.sRGBEncoding;
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(innerWidth, innerHeight);
 
