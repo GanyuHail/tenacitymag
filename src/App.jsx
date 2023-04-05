@@ -30,7 +30,7 @@ function App() {
       1,
       500
     );
-    camera.position.x = 3;
+    camera.position.x = 4;
     camera.position.z = -8;
     camera.position.y = 7;
     camera.lookAt(0, 0, 0);
