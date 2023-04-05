@@ -37898,10 +37898,9 @@ function App() {
       progressBarContainer.style.display = "none";
     };
     const scene = new Scene();
-    scene.background = "/src/landscape.jpeg";
     const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 500);
-    camera.position.x = 25;
-    camera.position.z = 25;
+    camera.position.x = 0;
+    camera.position.z = 15;
     camera.position.y = 25;
     camera.lookAt(0, 0, 0);
     const canvas = document.getElementById("myThreeJsCanvas");
