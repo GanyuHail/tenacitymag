@@ -38,7 +38,9 @@ function App() {
     const canvas = document.getElementById('myThreeJsCanvas')
     const renderer = new THREE.WebGLRenderer({
       canvas, antialias: true, 
+      alpha: true,
     });
+    renderer.setClearColor( 0xffffff, 0);
     renderer.shadowMap.enabled = true;
     renderer.outputEncoding = THREE.sRGBEncoding;
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -78,46 +80,46 @@ function App() {
     //   },
     scene.receiveShadow = true; 
 
-    const raycaster = new THREE.Raycaster();
-    const pointer = new THREE.Vector2();
+    // const raycaster = new THREE.Raycaster();
+    // const pointer = new THREE.Vector2();
 
-    window.addEventListener('pointermove', onPointerMove);
-    window.addEventListener('click', onMouseDown);
-    window.addEventListener('touchend', touchEnd);
+    // window.addEventListener('pointermove', onPointerMove);
+    // window.addEventListener('click', onMouseDown);
+    // window.addEventListener('touchend', touchEnd);
 
-    function onPointerMove(event) {
-      if (selectedObject) {
-        //selectedObject.material.color.set('white');
-        selectedObject = null;
-      }
+    // function onPointerMove(event) {
+    //   if (selectedObject) {
+    //     //selectedObject.material.color.set('white');
+    //     selectedObject = null;
+    //   }
 
-      pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
-      pointer.y = - (event.clientY / window.innerHeight) * 2 + 1;
+    //   pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+    //   pointer.y = - (event.clientY / window.innerHeight) * 2 + 1;
 
-      raycaster.setFromCamera(pointer, camera);
-      const intersects = raycaster.intersectObjects(scene.children, true);
+    //   raycaster.setFromCamera(pointer, camera);
+    //   const intersects = raycaster.intersectObjects(scene.children, true);
 
-      for (let i = 0; i < intersects.length; i++) {
-        const intersect = intersects[i];
+    //   for (let i = 0; i < intersects.length; i++) {
+    //     const intersect = intersects[i];
 
-        if (intersect && intersect.object) {
-          selectedObject = intersect.object;
-          intersect.object.material.color.set(0xFFFFFF);
-        }
-      }
-    };
+    //     if (intersect && intersect.object) {
+    //       selectedObject = intersect.object;
+    //       intersect.object.material.color.set(0xFFFFFF);
+    //     }
+    //   }
+    // };
 
-    function onMouseDown(event) {
-      if (selectedObject) {
-        window.location.href = "https://landing.oestrogeneration.org/";
-      }
-    };
+    // function onMouseDown(event) {
+    //   if (selectedObject) {
+    //     window.location.href = "https://landing.oestrogeneration.org/";
+    //   }
+    // };
 
-    function touchEnd(event) {
-      if (selectedObject) {
-        window.location.href = "https://landing.oestrogeneration.org/";
-      }
-    };
+    // function touchEnd(event) {
+    //   if (selectedObject) {
+    //     window.location.href = "https://landing.oestrogeneration.org/";
+    //   }
+    // };
 
     function render() {
       renderer.render(scene, camera);
