@@ -37884,7 +37884,6 @@ reactJsxRuntime_production_min.jsxs = q;
   }
 })(jsxRuntime);
 const jsx = jsxRuntime.exports.jsx;
-let selectedObject = null;
 function App() {
   react.exports.useEffect(() => {
     const progressBar = document.getElementById("progress-bar");
@@ -37908,8 +37907,10 @@ function App() {
     const canvas = document.getElementById("myThreeJsCanvas");
     const renderer = new WebGLRenderer({
       canvas,
-      antialias: true
+      antialias: true,
+      alpha: true
     });
+    renderer.setClearColor(16777215, 0);
     renderer.shadowMap.enabled = true;
     renderer.outputEncoding = sRGBEncoding;
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -37932,37 +37933,6 @@ function App() {
       scene.add(glb.scene);
     });
     scene.receiveShadow = true;
-    const raycaster = new Raycaster();
-    const pointer = new Vector2();
-    window.addEventListener("pointermove", onPointerMove);
-    window.addEventListener("click", onMouseDown);
-    window.addEventListener("touchend", touchEnd);
-    function onPointerMove(event) {
-      if (selectedObject) {
-        selectedObject = null;
-      }
-      pointer.x = event.clientX / window.innerWidth * 2 - 1;
-      pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
-      raycaster.setFromCamera(pointer, camera);
-      const intersects2 = raycaster.intersectObjects(scene.children, true);
-      for (let i = 0; i < intersects2.length; i++) {
-        const intersect = intersects2[i];
-        if (intersect && intersect.object) {
-          selectedObject = intersect.object;
-          intersect.object.material.color.set(16777215);
-        }
-      }
-    }
-    function onMouseDown(event) {
-      if (selectedObject) {
-        window.location.href = "https://landing.oestrogeneration.org/";
-      }
-    }
-    function touchEnd(event) {
-      if (selectedObject) {
-        window.location.href = "https://landing.oestrogeneration.org/";
-      }
-    }
     function render() {
       renderer.render(scene, camera);
     }
