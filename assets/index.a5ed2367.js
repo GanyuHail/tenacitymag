@@ -37900,7 +37900,7 @@ function App() {
     const scene = new Scene();
     const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 500);
     camera.position.x = 5;
-    camera.position.z = 0;
+    camera.position.z = 90;
     camera.position.y = 5;
     camera.lookAt(0, 0, 0);
     const canvas = document.getElementById("myThreeJsCanvas");
@@ -37920,7 +37920,7 @@ function App() {
     spotLight.physicallyCorrectLights = true;
     spotLight.castShadow = true;
     scene.add(spotLight);
-    const ambientLight = new AmbientLight(16444109, 1.2);
+    const ambientLight = new AmbientLight(16444109, 1.5);
     ambientLight.physicallyCorrectLights = true;
     scene.add(ambientLight);
     const axesHelper = new AxesHelper(5);
