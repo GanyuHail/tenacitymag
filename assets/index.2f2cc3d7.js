@@ -37901,7 +37901,7 @@ function App() {
     const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 500);
     camera.position.x = 0;
     camera.position.z = 10;
-    camera.position.y = 20;
+    camera.position.y = 0;
     camera.lookAt(0, 0, 0);
     const canvas = document.getElementById("myThreeJsCanvas");
     const renderer = new WebGLRenderer({
@@ -37916,7 +37916,7 @@ function App() {
     renderer.setSize(innerWidth, innerHeight);
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
-    const spotLight = new SpotLight(11393254, 1.2);
+    const spotLight = new SpotLight(11393254, 0.6);
     spotLight.position.set(50, 64, 32);
     spotLight.physicallyCorrectLights = true;
     spotLight.castShadow = true;
