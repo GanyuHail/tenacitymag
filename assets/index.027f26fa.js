@@ -37899,9 +37899,9 @@ function App() {
     };
     const scene = new Scene();
     const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 500);
-    camera.position.x = 3;
+    camera.position.x = 5;
     camera.position.z = 0;
-    camera.position.y = 0;
+    camera.position.y = 5;
     camera.lookAt(0, 0, 0);
     const canvas = document.getElementById("myThreeJsCanvas");
     const renderer = new WebGLRenderer({
@@ -37920,9 +37920,11 @@ function App() {
     spotLight.physicallyCorrectLights = true;
     spotLight.castShadow = true;
     scene.add(spotLight);
-    const ambientLight = new AmbientLight(16444109, 1);
+    const ambientLight = new AmbientLight(16444109, 1.2);
     ambientLight.physicallyCorrectLights = true;
     scene.add(ambientLight);
+    const axesHelper = new AxesHelper(5);
+    scene.add(axesHelper);
     const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/oestropill/main/src/");
     var dracoLoader = new threeDracoloader();
     threeDracoloader.setDecoderPath("/three-dracoloader");
