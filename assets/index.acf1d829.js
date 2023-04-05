@@ -37901,7 +37901,7 @@ function App() {
     const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 500);
     camera.position.x = 0;
     camera.position.z = 10;
-    camera.position.y = -25;
+    camera.position.y = 20;
     camera.lookAt(0, 0, 0);
     const canvas = document.getElementById("myThreeJsCanvas");
     const renderer = new WebGLRenderer({
@@ -37921,7 +37921,7 @@ function App() {
     spotLight.physicallyCorrectLights = true;
     spotLight.castShadow = true;
     scene.add(spotLight);
-    const ambientLight = new AmbientLight(16444109, 1);
+    const ambientLight = new AmbientLight(16444109, 2);
     ambientLight.physicallyCorrectLights = true;
     scene.add(ambientLight);
     const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/oestropill/main/src/");
