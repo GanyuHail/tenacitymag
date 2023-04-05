@@ -22,7 +22,7 @@ function App() {
     };
 
     const scene = new THREE.Scene();
-    scene.background = '/src/landscape.jpeg';
+    // scene.background = THREE.Color(0xa39cef);
 
     const camera = new THREE.PerspectiveCamera(
       50,
@@ -30,17 +30,17 @@ function App() {
       1,
       500
     );
-    camera.position.x = 25;
-    camera.position.z = 25;
-    camera.position.y = 25;
+    camera.position.x = 3;
+    camera.position.z = -8;
+    camera.position.y = 7;
     camera.lookAt(0, 0, 0);
 
     const canvas = document.getElementById('myThreeJsCanvas')
     const renderer = new THREE.WebGLRenderer({
-      canvas, antialias: true, 
+      canvas, antialias: true,
       alpha: true,
     });
-    renderer.setClearColor( 0xffffff, 0);
+    // renderer.setClearColor( 0xffffff, 0);
     renderer.shadowMap.enabled = true;
     renderer.outputEncoding = THREE.sRGBEncoding;
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -49,14 +49,14 @@ function App() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    const spotLight = new THREE.SpotLight(0xADD8E6, 1.2);
+    const spotLight = new THREE.SpotLight(0xADD8E6, 0.3);
     //spotLight.castShadow = true;
     spotLight.position.set(50, 64, 32);
     spotLight.physicallyCorrectLights = true;
     spotLight.castShadow = true;
     scene.add(spotLight);
 
-    const ambientLight = new THREE.AmbientLight(0xFAEACD, 1.0);
+    const ambientLight = new THREE.AmbientLight(0xFAEACD, 1.5);
     ambientLight.physicallyCorrectLights = true;
     scene.add(ambientLight);
 
@@ -78,7 +78,7 @@ function App() {
     //     console.log((xhr.loaded / xhr.total * 100) + '% loaded');
 
     //   },
-    scene.receiveShadow = true; 
+    scene.receiveShadow = true;
 
     // const raycaster = new THREE.Raycaster();
     // const pointer = new THREE.Vector2();

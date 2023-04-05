@@ -37898,11 +37898,10 @@ function App() {
       progressBarContainer.style.display = "none";
     };
     const scene = new Scene();
-    scene.background = "/src/landscape.jpeg";
     const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 500);
-    camera.position.x = 25;
-    camera.position.z = 25;
-    camera.position.y = 25;
+    camera.position.x = 3;
+    camera.position.z = -8;
+    camera.position.y = 7;
     camera.lookAt(0, 0, 0);
     const canvas = document.getElementById("myThreeJsCanvas");
     const renderer = new WebGLRenderer({
@@ -37910,19 +37909,18 @@ function App() {
       antialias: true,
       alpha: true
     });
-    renderer.setClearColor(16777215, 0);
     renderer.shadowMap.enabled = true;
     renderer.outputEncoding = sRGBEncoding;
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(innerWidth, innerHeight);
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
-    const spotLight = new SpotLight(11393254, 1.2);
+    const spotLight = new SpotLight(11393254, 0.3);
     spotLight.position.set(50, 64, 32);
     spotLight.physicallyCorrectLights = true;
     spotLight.castShadow = true;
     scene.add(spotLight);
-    const ambientLight = new AmbientLight(16444109, 1);
+    const ambientLight = new AmbientLight(16444109, 1.5);
     ambientLight.physicallyCorrectLights = true;
     scene.add(ambientLight);
     const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/oestropill/main/src/");
