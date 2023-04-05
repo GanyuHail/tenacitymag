@@ -37898,7 +37898,7 @@ function App() {
       progressBarContainer.style.display = "none";
     };
     const scene = new Scene();
-    scene.background = Color(10722543, 1);
+    scene.background = Color(10722543);
     const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 500);
     camera.position.x = 0;
     camera.position.z = 0;
@@ -37910,7 +37910,6 @@ function App() {
       antialias: true,
       alpha: true
     });
-    renderer.setClearColor(16777215, 0);
     renderer.shadowMap.enabled = true;
     renderer.outputEncoding = sRGBEncoding;
     renderer.setPixelRatio(window.devicePixelRatio);
