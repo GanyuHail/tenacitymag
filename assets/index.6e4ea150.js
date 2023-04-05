@@ -37898,7 +37898,6 @@ function App() {
       progressBarContainer.style.display = "none";
     };
     const scene = new Scene();
-    scene.background = Color(10722543);
     const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 500);
     camera.position.x = 0;
     camera.position.z = 0;
