@@ -37899,9 +37899,9 @@ function App() {
     };
     const scene = new Scene();
     const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 500);
-    camera.position.x = 4;
-    camera.position.z = -8;
-    camera.position.y = 7;
+    camera.position.x = 2;
+    camera.position.z = -4;
+    camera.position.y = 4;
     camera.lookAt(0, 0, 0);
     const canvas = document.getElementById("myThreeJsCanvas");
     const renderer = new WebGLRenderer({
@@ -37910,7 +37910,7 @@ function App() {
       alpha: true
     });
     renderer.shadowMap.enabled = true;
-    renderer.outputEncoding = sRGBEncoding;
+    renderer.ACESFilmicToneMapping = true;
     renderer.gammaOutput = true;
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(innerWidth, innerHeight);

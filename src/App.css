@@ -10,3 +10,5 @@
     background: red;
     border: none;
   } */
+
+  canvas { outline: none; border: none; }

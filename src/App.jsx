@@ -4,8 +4,6 @@ import GLTFLoader from 'three-gltf-loader';
 import DRACOLoader from 'three-dracoloader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
-let selectedObject = null;
-
 function App() {
   useEffect(() => {
 
@@ -30,9 +28,9 @@ function App() {
       1,
       500
     );
-    camera.position.x = 4;
-    camera.position.z = -8;
-    camera.position.y = 7;
+    camera.position.x = 2; //done / moves horizontal
+    camera.position.z = -4;
+    camera.position.y = 4;
     camera.lookAt(0, 0, 0);
 
     const canvas = document.getElementById('myThreeJsCanvas')
@@ -42,7 +40,7 @@ function App() {
     });
     // renderer.setClearColor( 0xffffff, 0);
     renderer.shadowMap.enabled = true;
-    // renderer.outputEncoding = THREE.sRGBEncoding;
+    renderer.ACESFilmicToneMapping = true; 
     renderer.gammaOutput = true;
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(innerWidth, innerHeight);
