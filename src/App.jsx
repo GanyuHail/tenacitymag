@@ -42,7 +42,8 @@ function App() {
     });
     // renderer.setClearColor( 0xffffff, 0);
     renderer.shadowMap.enabled = true;
-    renderer.outputEncoding = THREE.sRGBEncoding;
+    // renderer.outputEncoding = THREE.sRGBEncoding;
+    renderer.gammaOutput = true;
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(innerWidth, innerHeight);
 
