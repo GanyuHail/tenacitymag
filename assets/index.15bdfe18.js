@@ -37910,7 +37910,7 @@ function App() {
       alpha: true
     });
     renderer.shadowMap.enabled = true;
-    renderer.LinearToneMapping = true;
+    renderer.ACESFilmicToneMapping = true;
     renderer.gammaOutput = true;
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(innerWidth, innerHeight);
