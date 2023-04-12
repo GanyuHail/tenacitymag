@@ -11,4 +11,8 @@
     border: none;
   } */
 
-  canvas { outline: none; border: none; }
+  canvas { 
+    outline: none; 
+    border: none; 
+    background-color: transparent;
+  }
