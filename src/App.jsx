@@ -70,7 +70,7 @@ function App() {
     DRACOLoader.setDecoderPath('/three-dracoloader');
     loader.setDRACOLoader(dracoLoader);
 
-    loader.load('oestrobotpink.glb', function (glb) {
+    loader.load('hotpink.glb', function (glb) {
       scene.add(glb.scene);
     });
     //   function (xhr) {
