@@ -29,7 +29,7 @@ function App() {
       500
     );
     camera.position.x = 2; //done / moves horizontal
-    camera.position.z = -4;
+    camera.position.z = -3;
     camera.position.y = 4;
     camera.lookAt(0, 0, 0);
 
