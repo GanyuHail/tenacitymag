@@ -29,7 +29,7 @@ function App() {
       500
     );
     camera.position.x = 2; //done / moves horizontal
-    camera.position.z = -4; // seems to b near far
+    camera.position.z = -2; // seems to b near far
     camera.position.y = 5;
     camera.lookAt(0, 0, 0);
 
