@@ -10570,14 +10570,14 @@ var _yAxis = new Vector3(0, 1, 0);
 var _zAxis = new Vector3(0, 0, 1);
 var _addedEvent = { type: "added" };
 var _removedEvent = { type: "removed" };
-function Object3D$1() {
+function Object3D() {
   Object.defineProperty(this, "id", { value: _object3DId++ });
   this.uuid = _Math.generateUUID();
   this.name = "";
   this.type = "Object3D";
   this.parent = null;
   this.children = [];
-  this.up = Object3D$1.DefaultUp.clone();
+  this.up = Object3D.DefaultUp.clone();
   var position = new Vector3();
   var rotation = new Euler();
   var quaternion = new Quaternion();
@@ -10620,7 +10620,7 @@ function Object3D$1() {
   });
   this.matrix = new Matrix4();
   this.matrixWorld = new Matrix4();
-  this.matrixAutoUpdate = Object3D$1.DefaultMatrixAutoUpdate;
+  this.matrixAutoUpdate = Object3D.DefaultMatrixAutoUpdate;
   this.matrixWorldNeedsUpdate = false;
   this.layers = new Layers();
   this.visible = true;
@@ -10630,10 +10630,10 @@ function Object3D$1() {
   this.renderOrder = 0;
   this.userData = {};
 }
-Object3D$1.DefaultUp = new Vector3(0, 1, 0);
-Object3D$1.DefaultMatrixAutoUpdate = true;
-Object3D$1.prototype = Object.assign(Object.create(EventDispatcher.prototype), {
-  constructor: Object3D$1,
+Object3D.DefaultUp = new Vector3(0, 1, 0);
+Object3D.DefaultMatrixAutoUpdate = true;
+Object3D.prototype = Object.assign(Object.create(EventDispatcher.prototype), {
+  constructor: Object3D,
   isObject3D: true,
   onBeforeRender: function() {
   },
@@ -11033,7 +11033,7 @@ Object3D$1.prototype = Object.assign(Object.create(EventDispatcher.prototype), {
   }
 });
 function Scene() {
-  Object3D$1.call(this);
+  Object3D.call(this);
   this.type = "Scene";
   this.background = null;
   this.fog = null;
@@ -11043,11 +11043,11 @@ function Scene() {
     __THREE_DEVTOOLS__.dispatchEvent(new CustomEvent("observe", { detail: this }));
   }
 }
-Scene.prototype = Object.assign(Object.create(Object3D$1.prototype), {
+Scene.prototype = Object.assign(Object.create(Object3D.prototype), {
   constructor: Scene,
   isScene: true,
   copy: function(source, recursive) {
-    Object3D$1.prototype.copy.call(this, source, recursive);
+    Object3D.prototype.copy.call(this, source, recursive);
     if (source.background !== null)
       this.background = source.background.clone();
     if (source.fog !== null)
@@ -11059,7 +11059,7 @@ Scene.prototype = Object.assign(Object.create(Object3D$1.prototype), {
     return this;
   },
   toJSON: function(meta) {
-    var data = Object3D$1.prototype.toJSON.call(this, meta);
+    var data = Object3D.prototype.toJSON.call(this, meta);
     if (this.background !== null)
       data.object.background = this.background.toJSON(meta);
     if (this.fog !== null)
@@ -13302,7 +13302,7 @@ function arrayMax(array) {
 }
 var _bufferGeometryId = 1;
 var _m1$2 = new Matrix4();
-var _obj = new Object3D$1();
+var _obj = new Object3D();
 var _offset = new Vector3();
 var _box$2 = new Box3();
 var _boxMorphTargets = new Box3();
@@ -13945,21 +13945,21 @@ var _uvC = new Vector2();
 var _intersectionPoint = new Vector3();
 var _intersectionPointWorld = new Vector3();
 function Mesh(geometry, material) {
-  Object3D$1.call(this);
+  Object3D.call(this);
   this.type = "Mesh";
   this.geometry = geometry !== void 0 ? geometry : new BufferGeometry();
   this.material = material !== void 0 ? material : new MeshBasicMaterial({ color: Math.random() * 16777215 });
   this.drawMode = TrianglesDrawMode;
   this.updateMorphTargets();
 }
-Mesh.prototype = Object.assign(Object.create(Object3D$1.prototype), {
+Mesh.prototype = Object.assign(Object.create(Object3D.prototype), {
   constructor: Mesh,
   isMesh: true,
   setDrawMode: function(value) {
     this.drawMode = value;
   },
   copy: function(source) {
-    Object3D$1.prototype.copy.call(this, source);
+    Object3D.prototype.copy.call(this, source);
     this.drawMode = source.drawMode;
     if (source.morphTargetInfluences !== void 0) {
       this.morphTargetInfluences = source.morphTargetInfluences.slice();
@@ -14207,7 +14207,7 @@ function checkBufferGeometryIntersection(object, material, raycaster, ray, posit
 }
 var _geometryId = 0;
 var _m1$3 = new Matrix4();
-var _obj$1 = new Object3D$1();
+var _obj$1 = new Object3D();
 var _offset$1 = new Vector3();
 function Geometry() {
   Object.defineProperty(this, "id", { value: _geometryId += 2 });
@@ -15161,17 +15161,17 @@ ShaderMaterial.prototype.toJSON = function(meta) {
   return data;
 };
 function Camera() {
-  Object3D$1.call(this);
+  Object3D.call(this);
   this.type = "Camera";
   this.matrixWorldInverse = new Matrix4();
   this.projectionMatrix = new Matrix4();
   this.projectionMatrixInverse = new Matrix4();
 }
-Camera.prototype = Object.assign(Object.create(Object3D$1.prototype), {
+Camera.prototype = Object.assign(Object.create(Object3D.prototype), {
   constructor: Camera,
   isCamera: true,
   copy: function(source, recursive) {
-    Object3D$1.prototype.copy.call(this, source, recursive);
+    Object3D.prototype.copy.call(this, source, recursive);
     this.matrixWorldInverse.copy(source.matrixWorldInverse);
     this.projectionMatrix.copy(source.projectionMatrix);
     this.projectionMatrixInverse.copy(source.projectionMatrixInverse);
@@ -15187,7 +15187,7 @@ Camera.prototype = Object.assign(Object.create(Object3D$1.prototype), {
     return target.set(-e[8], -e[9], -e[10]).normalize();
   },
   updateMatrixWorld: function(force) {
-    Object3D$1.prototype.updateMatrixWorld.call(this, force);
+    Object3D.prototype.updateMatrixWorld.call(this, force);
     this.matrixWorldInverse.getInverse(this.matrixWorld);
   },
   clone: function() {
@@ -15286,7 +15286,7 @@ PerspectiveCamera.prototype = Object.assign(Object.create(Camera.prototype), {
     this.projectionMatrixInverse.getInverse(this.projectionMatrix);
   },
   toJSON: function(meta) {
-    var data = Object3D$1.prototype.toJSON.call(this, meta);
+    var data = Object3D.prototype.toJSON.call(this, meta);
     data.object.fov = this.fov;
     data.object.zoom = this.zoom;
     data.object.near = this.near;
@@ -15302,7 +15302,7 @@ PerspectiveCamera.prototype = Object.assign(Object.create(Camera.prototype), {
 });
 var fov = 90, aspect = 1;
 function CubeCamera(near, far, cubeResolution, options) {
-  Object3D$1.call(this);
+  Object3D.call(this);
   this.type = "CubeCamera";
   var cameraPX = new PerspectiveCamera(fov, aspect, near, far);
   cameraPX.up.set(0, -1, 0);
@@ -15363,7 +15363,7 @@ function CubeCamera(near, far, cubeResolution, options) {
     renderer.setRenderTarget(currentRenderTarget);
   };
 }
-CubeCamera.prototype = Object.create(Object3D$1.prototype);
+CubeCamera.prototype = Object.create(Object3D.prototype);
 CubeCamera.prototype.constructor = CubeCamera;
 function WebGLRenderTargetCube(width, height, options) {
   WebGLRenderTarget.call(this, width, height, options);
@@ -20454,10 +20454,10 @@ function WebGLMultiview(renderer, gl2) {
   this.updateObjectMatricesUniforms = updateObjectMatricesUniforms;
 }
 function Group() {
-  Object3D$1.call(this);
+  Object3D.call(this);
   this.type = "Group";
 }
-Group.prototype = Object.assign(Object.create(Object3D$1.prototype), {
+Group.prototype = Object.assign(Object.create(Object3D.prototype), {
   constructor: Group,
   isGroup: true
 });
@@ -22518,7 +22518,7 @@ var _uvA$1 = new Vector2();
 var _uvB$1 = new Vector2();
 var _uvC$1 = new Vector2();
 function Sprite(material) {
-  Object3D$1.call(this);
+  Object3D.call(this);
   this.type = "Sprite";
   if (_geometry === void 0) {
     _geometry = new BufferGeometry();
@@ -22553,7 +22553,7 @@ function Sprite(material) {
   this.material = material !== void 0 ? material : new SpriteMaterial();
   this.center = new Vector2(0.5, 0.5);
 }
-Sprite.prototype = Object.assign(Object.create(Object3D$1.prototype), {
+Sprite.prototype = Object.assign(Object.create(Object3D.prototype), {
   constructor: Sprite,
   isSprite: true,
   raycast: function(raycaster, intersects2) {
@@ -22604,7 +22604,7 @@ Sprite.prototype = Object.assign(Object.create(Object3D$1.prototype), {
     return new this.constructor(this.material).copy(this);
   },
   copy: function(source) {
-    Object3D$1.prototype.copy.call(this, source);
+    Object3D.prototype.copy.call(this, source);
     if (source.center !== void 0)
       this.center.copy(source.center);
     return this;
@@ -22626,7 +22626,7 @@ function transformVertex(vertexPosition, mvPosition, center, scale, sin, cos) {
 var _v1$4 = new Vector3();
 var _v2$2 = new Vector3();
 function LOD() {
-  Object3D$1.call(this);
+  Object3D.call(this);
   this.type = "LOD";
   Object.defineProperties(this, {
     levels: {
@@ -22636,11 +22636,11 @@ function LOD() {
   });
   this.autoUpdate = true;
 }
-LOD.prototype = Object.assign(Object.create(Object3D$1.prototype), {
+LOD.prototype = Object.assign(Object.create(Object3D.prototype), {
   constructor: LOD,
   isLOD: true,
   copy: function(source) {
-    Object3D$1.prototype.copy.call(this, source, false);
+    Object3D.prototype.copy.call(this, source, false);
     var levels = source.levels;
     for (var i = 0, l2 = levels.length; i < l2; i++) {
       var level = levels[i];
@@ -22704,7 +22704,7 @@ LOD.prototype = Object.assign(Object.create(Object3D$1.prototype), {
     }
   },
   toJSON: function(meta) {
-    var data = Object3D$1.prototype.toJSON.call(this, meta);
+    var data = Object3D.prototype.toJSON.call(this, meta);
     if (this.autoUpdate === false)
       data.object.autoUpdate = false;
     data.object.levels = [];
@@ -22857,10 +22857,10 @@ Object.assign(Skeleton.prototype, {
   }
 });
 function Bone() {
-  Object3D$1.call(this);
+  Object3D.call(this);
   this.type = "Bone";
 }
-Bone.prototype = Object.assign(Object.create(Object3D$1.prototype), {
+Bone.prototype = Object.assign(Object.create(Object3D.prototype), {
   constructor: Bone,
   isBone: true
 });
@@ -22934,12 +22934,12 @@ function Line(geometry, material, mode) {
   if (mode === 1) {
     console.error("THREE.Line: parameter THREE.LinePieces no longer supported. Use THREE.LineSegments instead.");
   }
-  Object3D$1.call(this);
+  Object3D.call(this);
   this.type = "Line";
   this.geometry = geometry !== void 0 ? geometry : new BufferGeometry();
   this.material = material !== void 0 ? material : new LineBasicMaterial({ color: Math.random() * 16777215 });
 }
-Line.prototype = Object.assign(Object.create(Object3D$1.prototype), {
+Line.prototype = Object.assign(Object.create(Object3D.prototype), {
   constructor: Line,
   isLine: true,
   computeLineDistances: function() {
@@ -23138,13 +23138,13 @@ var _ray$2 = new Ray();
 var _sphere$3 = new Sphere();
 var _position$1 = new Vector3();
 function Points(geometry, material) {
-  Object3D$1.call(this);
+  Object3D.call(this);
   this.type = "Points";
   this.geometry = geometry !== void 0 ? geometry : new BufferGeometry();
   this.material = material !== void 0 ? material : new PointsMaterial({ color: Math.random() * 16777215 });
   this.updateMorphTargets();
 }
-Points.prototype = Object.assign(Object.create(Object3D$1.prototype), {
+Points.prototype = Object.assign(Object.create(Object3D.prototype), {
   constructor: Points,
   isPoints: true,
   raycast: function(raycaster, intersects2) {
@@ -28645,23 +28645,23 @@ Shape.prototype = Object.assign(Object.create(Path.prototype), {
   }
 });
 function Light(color, intensity) {
-  Object3D$1.call(this);
+  Object3D.call(this);
   this.type = "Light";
   this.color = new Color(color);
   this.intensity = intensity !== void 0 ? intensity : 1;
   this.receiveShadow = void 0;
 }
-Light.prototype = Object.assign(Object.create(Object3D$1.prototype), {
+Light.prototype = Object.assign(Object.create(Object3D.prototype), {
   constructor: Light,
   isLight: true,
   copy: function(source) {
-    Object3D$1.prototype.copy.call(this, source);
+    Object3D.prototype.copy.call(this, source);
     this.color.copy(source.color);
     this.intensity = source.intensity;
     return this;
   },
   toJSON: function(meta) {
-    var data = Object3D$1.prototype.toJSON.call(this, meta);
+    var data = Object3D.prototype.toJSON.call(this, meta);
     data.object.color = this.color.getHex();
     data.object.intensity = this.intensity;
     if (this.groundColor !== void 0)
@@ -28683,7 +28683,7 @@ function HemisphereLight(skyColor, groundColor, intensity) {
   Light.call(this, skyColor, intensity);
   this.type = "HemisphereLight";
   this.castShadow = void 0;
-  this.position.copy(Object3D$1.DefaultUp);
+  this.position.copy(Object3D.DefaultUp);
   this.updateMatrix();
   this.groundColor = new Color(groundColor);
 }
@@ -28786,9 +28786,9 @@ SpotLightShadow.prototype = Object.assign(Object.create(LightShadow.prototype), 
 function SpotLight(color, intensity, distance, angle, penumbra, decay) {
   Light.call(this, color, intensity);
   this.type = "SpotLight";
-  this.position.copy(Object3D$1.DefaultUp);
+  this.position.copy(Object3D.DefaultUp);
   this.updateMatrix();
-  this.target = new Object3D$1();
+  this.target = new Object3D();
   Object.defineProperty(this, "power", {
     get: function() {
       return this.intensity * Math.PI;
@@ -28969,7 +28969,7 @@ OrthographicCamera.prototype = Object.assign(Object.create(Camera.prototype), {
     this.projectionMatrixInverse.getInverse(this.projectionMatrix);
   },
   toJSON: function(meta) {
-    var data = Object3D$1.prototype.toJSON.call(this, meta);
+    var data = Object3D.prototype.toJSON.call(this, meta);
     data.object.zoom = this.zoom;
     data.object.left = this.left;
     data.object.right = this.right;
@@ -28995,9 +28995,9 @@ DirectionalLightShadow.prototype = Object.assign(Object.create(LightShadow.proto
 function DirectionalLight(color, intensity) {
   Light.call(this, color, intensity);
   this.type = "DirectionalLight";
-  this.position.copy(Object3D$1.DefaultUp);
+  this.position.copy(Object3D.DefaultUp);
   this.updateMatrix();
-  this.target = new Object3D$1();
+  this.target = new Object3D();
   this.shadow = new DirectionalLightShadow();
 }
 DirectionalLight.prototype = Object.assign(Object.create(Light.prototype), {
@@ -29864,7 +29864,7 @@ ObjectLoader.prototype = Object.assign(Object.create(Loader.prototype), {
         object = new Group();
         break;
       default:
-        object = new Object3D$1();
+        object = new Object3D();
     }
     object.uuid = data.uuid;
     if (data.name !== void 0)
@@ -30582,7 +30582,7 @@ var _quaternion$3 = new Quaternion();
 var _scale$1 = new Vector3();
 var _orientation = new Vector3();
 function AudioListener() {
-  Object3D$1.call(this);
+  Object3D.call(this);
   this.type = "AudioListener";
   this.context = AudioContext.getContext();
   this.gain = this.context.createGain();
@@ -30591,7 +30591,7 @@ function AudioListener() {
   this.timeDelta = 0;
   this._clock = new Clock();
 }
-AudioListener.prototype = Object.assign(Object.create(Object3D$1.prototype), {
+AudioListener.prototype = Object.assign(Object.create(Object3D.prototype), {
   constructor: AudioListener,
   getInput: function() {
     return this.gain;
@@ -30628,7 +30628,7 @@ AudioListener.prototype = Object.assign(Object.create(Object3D$1.prototype), {
     return this;
   },
   updateMatrixWorld: function(force) {
-    Object3D$1.prototype.updateMatrixWorld.call(this, force);
+    Object3D.prototype.updateMatrixWorld.call(this, force);
     var listener = this.context.listener;
     var up = this.up;
     this.timeDelta = this._clock.getDelta();
@@ -30652,7 +30652,7 @@ AudioListener.prototype = Object.assign(Object.create(Object3D$1.prototype), {
   }
 });
 function Audio(listener) {
-  Object3D$1.call(this);
+  Object3D.call(this);
   this.type = "Audio";
   this.listener = listener;
   this.context = listener.context;
@@ -30674,7 +30674,7 @@ function Audio(listener) {
   this._pausedAt = 0;
   this.filters = [];
 }
-Audio.prototype = Object.assign(Object.create(Object3D$1.prototype), {
+Audio.prototype = Object.assign(Object.create(Object3D.prototype), {
   constructor: Audio,
   getOutput: function() {
     return this.gain;
@@ -30914,7 +30914,7 @@ PositionalAudio.prototype = Object.assign(Object.create(Audio.prototype), {
     return this;
   },
   updateMatrixWorld: function(force) {
-    Object3D$1.prototype.updateMatrixWorld.call(this, force);
+    Object3D.prototype.updateMatrixWorld.call(this, force);
     if (this.hasPlaybackControl === true && this.isPlaying === false)
       return;
     this.matrixWorld.decompose(_position$3, _quaternion$4, _scale$2);
@@ -32543,12 +32543,12 @@ Object.assign(Line3.prototype, {
   }
 });
 function ImmediateRenderObject(material) {
-  Object3D$1.call(this);
+  Object3D.call(this);
   this.material = material;
   this.render = function() {
   };
 }
-ImmediateRenderObject.prototype = Object.create(Object3D$1.prototype);
+ImmediateRenderObject.prototype = Object.create(Object3D.prototype);
 ImmediateRenderObject.prototype.constructor = ImmediateRenderObject;
 ImmediateRenderObject.prototype.isImmediateRenderObject = true;
 var _v1$5 = new Vector3();
@@ -32617,7 +32617,7 @@ VertexNormalsHelper.prototype.update = function() {
 };
 var _vector$7 = new Vector3();
 function SpotLightHelper(light, color) {
-  Object3D$1.call(this);
+  Object3D.call(this);
   this.light = light;
   this.light.updateMatrixWorld();
   this.matrix = light.matrixWorld;
@@ -32667,7 +32667,7 @@ function SpotLightHelper(light, color) {
   this.add(this.cone);
   this.update();
 }
-SpotLightHelper.prototype = Object.create(Object3D$1.prototype);
+SpotLightHelper.prototype = Object.create(Object3D.prototype);
 SpotLightHelper.prototype.constructor = SpotLightHelper;
 SpotLightHelper.prototype.dispose = function() {
   this.cone.geometry.dispose();
@@ -32744,7 +32744,7 @@ SkeletonHelper.prototype.updateMatrixWorld = function(force) {
     }
   }
   geometry.getAttribute("position").needsUpdate = true;
-  Object3D$1.prototype.updateMatrixWorld.call(this, force);
+  Object3D.prototype.updateMatrixWorld.call(this, force);
 };
 function PointLightHelper(light, sphereSize, color) {
   this.light = light;
@@ -32813,7 +32813,7 @@ var _vector$9 = new Vector3();
 var _color1 = new Color();
 var _color2 = new Color();
 function HemisphereLightHelper(light, size, color) {
-  Object3D$1.call(this);
+  Object3D.call(this);
   this.light = light;
   this.light.updateMatrixWorld();
   this.matrix = light.matrixWorld;
@@ -32830,7 +32830,7 @@ function HemisphereLightHelper(light, size, color) {
   this.add(new Mesh(geometry, this.material));
   this.update();
 }
-HemisphereLightHelper.prototype = Object.create(Object3D$1.prototype);
+HemisphereLightHelper.prototype = Object.create(Object3D.prototype);
 HemisphereLightHelper.prototype.constructor = HemisphereLightHelper;
 HemisphereLightHelper.prototype.dispose = function() {
   this.children[0].geometry.dispose();
@@ -33121,7 +33121,7 @@ var _v1$7 = new Vector3();
 var _v2$5 = new Vector3();
 var _v3$1 = new Vector3();
 function DirectionalLightHelper(light, size, color) {
-  Object3D$1.call(this);
+  Object3D.call(this);
   this.light = light;
   this.light.updateMatrixWorld();
   this.matrix = light.matrixWorld;
@@ -33156,7 +33156,7 @@ function DirectionalLightHelper(light, size, color) {
   this.add(this.targetLine);
   this.update();
 }
-DirectionalLightHelper.prototype = Object.create(Object3D$1.prototype);
+DirectionalLightHelper.prototype = Object.create(Object3D.prototype);
 DirectionalLightHelper.prototype.constructor = DirectionalLightHelper;
 DirectionalLightHelper.prototype.dispose = function() {
   this.lightPlane.geometry.dispose();
@@ -33370,7 +33370,7 @@ Box3Helper.prototype.updateMatrixWorld = function(force) {
   box.getCenter(this.position);
   box.getSize(this.scale);
   this.scale.multiplyScalar(0.5);
-  Object3D$1.prototype.updateMatrixWorld.call(this, force);
+  Object3D.prototype.updateMatrixWorld.call(this, force);
 };
 function PlaneHelper(plane, size, hex) {
   this.type = "PlaneHelper";
@@ -33397,12 +33397,12 @@ PlaneHelper.prototype.updateMatrixWorld = function(force) {
   this.scale.set(0.5 * this.size, 0.5 * this.size, scale);
   this.children[0].material.side = scale < 0 ? BackSide : FrontSide;
   this.lookAt(this.plane.normal);
-  Object3D$1.prototype.updateMatrixWorld.call(this, force);
+  Object3D.prototype.updateMatrixWorld.call(this, force);
 };
 var _axis = new Vector3();
 var _lineGeometry, _coneGeometry;
 function ArrowHelper(dir, origin, length, color, headLength, headWidth) {
-  Object3D$1.call(this);
+  Object3D.call(this);
   if (dir === void 0)
     dir = new Vector3(0, 0, 1);
   if (origin === void 0)
@@ -33431,7 +33431,7 @@ function ArrowHelper(dir, origin, length, color, headLength, headWidth) {
   this.setDirection(dir);
   this.setLength(length, headLength, headWidth);
 }
-ArrowHelper.prototype = Object.create(Object3D$1.prototype);
+ArrowHelper.prototype = Object.create(Object3D.prototype);
 ArrowHelper.prototype.constructor = ArrowHelper;
 ArrowHelper.prototype.setDirection = function(dir) {
   if (dir.y > 0.99999) {
@@ -33460,7 +33460,7 @@ ArrowHelper.prototype.setColor = function(color) {
   this.cone.material.color.set(color);
 };
 ArrowHelper.prototype.copy = function(source) {
-  Object3D$1.prototype.copy.call(this, source, false);
+  Object3D.prototype.copy.call(this, source, false);
   this.line.copy(source.line);
   this.cone.copy(source.cone);
   return this;
@@ -34001,7 +34001,7 @@ Object.assign(Geometry.prototype, {
     console.error("THREE.Geometry: .computeLineDistances() has been removed. Use THREE.Line.computeLineDistances() instead.");
   }
 });
-Object.assign(Object3D$1.prototype, {
+Object.assign(Object3D.prototype, {
   getChildByName: function(name) {
     console.warn("THREE.Object3D: .getChildByName() has been renamed to .getObjectByName().");
     return this.getObjectByName(name);
@@ -34017,7 +34017,7 @@ Object.assign(Object3D$1.prototype, {
     console.error("THREE.Object3D: .getWorldRotation() has been removed. Use THREE.Object3D.getWorldQuaternion( target ) instead.");
   }
 });
-Object.defineProperties(Object3D$1.prototype, {
+Object.defineProperties(Object3D.prototype, {
   eulerOrder: {
     get: function() {
       console.warn("THREE.Object3D: .eulerOrder is now .rotation.order.");
@@ -34978,7 +34978,7 @@ const three_module = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.define
   NotEqualDepth,
   NotEqualStencilFunc,
   NumberKeyframeTrack,
-  Object3D: Object3D$1,
+  Object3D,
   ObjectLoader,
   ObjectSpaceNormalMap,
   OctahedronBufferGeometry,
@@ -37920,6 +37920,7 @@ function App() {
     spotLight.position.set(50, 64, 32);
     spotLight.physicallyCorrectLights = true;
     spotLight.castShadow = true;
+    scene.receiveShadow = true;
     scene.add(spotLight);
     const ambientLight = new AmbientLight(16444109, 1);
     ambientLight.physicallyCorrectLights = true;
@@ -37928,7 +37929,6 @@ function App() {
     var dracoLoader = new threeDracoloader();
     threeDracoloader.setDecoderPath("/three-dracoloader");
     loader.setDRACOLoader(dracoLoader);
-    Object3D.receiveShadow = true;
     loader.load("hotpink.glb", function(glb2) {
       scene.add(glb2.scene);
     });
