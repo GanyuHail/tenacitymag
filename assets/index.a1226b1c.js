@@ -37929,11 +37929,10 @@ function App() {
     var dracoLoader = new threeDracoloader();
     threeDracoloader.setDecoderPath("/three-dracoloader");
     loader.setDRACOLoader(dracoLoader);
-    loader.load("hotpink.glb", function(glb2) {
-      scene.add(glb2.scene);
+    loader.load("hotpink.glb", function(glb) {
+      scene.add(glb.scene);
     });
     scene.receiveShadow = true;
-    glb.receiveShadow = true;
     function render() {
       renderer.render(scene, camera);
     }
