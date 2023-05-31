@@ -37899,9 +37899,9 @@ function App() {
     };
     const scene = new Scene();
     const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 500);
-    camera.position.x = 2;
-    camera.position.z = -2;
-    camera.position.y = 5;
+    camera.position.x = 1;
+    camera.position.z = 1;
+    camera.position.y = 1;
     camera.lookAt(0, 0, 0);
     const canvas = document.getElementById("myThreeJsCanvas");
     const renderer = new WebGLRenderer({
@@ -37928,7 +37928,7 @@ function App() {
     var dracoLoader = new threeDracoloader();
     threeDracoloader.setDecoderPath("/three-dracoloader");
     loader.setDRACOLoader(dracoLoader);
-    loader.load("tenacity6.glb", function(glb) {
+    loader.load("tenacity7.glb", function(glb) {
       scene.add(glb.scene);
     });
     scene.receiveShadow = true;
