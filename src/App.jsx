@@ -65,12 +65,12 @@ function App() {
     // spotLight.physicallyCorrectLights = true;
     // scene.add(spotLight2);
 
-    const loader = new GLTFLoader().setPath('https://raw.githubusercontent.com/GanyuHail/oestropill/main/src/');
+    const loader = new GLTFLoader().setPath('https://raw.githubusercontent.com/GanyuHail/tenacity2/main/src/');
     var dracoLoader = new DRACOLoader();
     DRACOLoader.setDecoderPath('/three-dracoloader');
     loader.setDRACOLoader(dracoLoader);
 
-    loader.load('hotpink.glb', function (glb) {
+    loader.load('tenacity6.glb', function (glb) {
       scene.add(glb.scene);
     });
     //   function (xhr) {
