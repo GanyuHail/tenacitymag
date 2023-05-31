@@ -28,9 +28,9 @@ function App() {
       1,
       500
     );
-    camera.position.x = 2; //done / moves horizontal
-    camera.position.z = -2; // seems to b near far
-    camera.position.y = 5;
+    camera.position.x = 1; //done / moves horizontal
+    camera.position.z = 1; // seems to b near far
+    camera.position.y = 1;
     camera.lookAt(0, 0, 0);
 
     const canvas = document.getElementById('myThreeJsCanvas')
@@ -70,7 +70,7 @@ function App() {
     DRACOLoader.setDecoderPath('/three-dracoloader');
     loader.setDRACOLoader(dracoLoader);
 
-    loader.load('tenacity6.glb', function (glb) {
+    loader.load('tenacity7.glb', function (glb) {
       scene.add(glb.scene);
     });
     //   function (xhr) {
