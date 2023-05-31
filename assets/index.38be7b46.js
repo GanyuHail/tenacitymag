@@ -37900,7 +37900,7 @@ function App() {
     const scene = new Scene();
     const camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 500);
     camera.position.x = 2;
-    camera.position.z = -3;
+    camera.position.z = -2;
     camera.position.y = 5;
     camera.lookAt(0, 0, 0);
     const canvas = document.getElementById("myThreeJsCanvas");
@@ -37920,16 +37920,15 @@ function App() {
     spotLight.position.set(50, 64, 32);
     spotLight.physicallyCorrectLights = true;
     spotLight.castShadow = true;
-    scene.receiveShadow = true;
     scene.add(spotLight);
     const ambientLight = new AmbientLight(16444109, 1);
     ambientLight.physicallyCorrectLights = true;
     scene.add(ambientLight);
-    const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/oestropill/main/src/");
+    const loader = new threeGltfLoader().setPath("https://raw.githubusercontent.com/GanyuHail/tenacity2/main/src/");
     var dracoLoader = new threeDracoloader();
     threeDracoloader.setDecoderPath("/three-dracoloader");
     loader.setDRACOLoader(dracoLoader);
-    loader.load("hotpink.glb", function(glb) {
+    loader.load("tenacity6.glb", function(glb) {
       scene.add(glb.scene);
     });
     scene.receiveShadow = true;
