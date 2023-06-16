@@ -2,7 +2,7 @@
   "name": "three-setup",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://ganyuhail.github.io/bl3/",
+  "homepage": "https://ganyuhail.github.io/tenacitymag/",
   "type": "module",
   "scripts": {
     "predeploy": "npm run build",
